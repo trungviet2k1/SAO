@@ -204,6 +204,11 @@ public class Boss : MonoBehaviour
 
     public void TakeDamage(float damageAmount)
     {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("PowerUp"))
+        {
+            return;
+        }
+
         health -= damageAmount;
         animator.SetTrigger("TakeDamage");
 
@@ -216,6 +221,7 @@ public class Boss : MonoBehaviour
         CheckPowerUp();
 
         isTakingDamage = true;
+        isAttacking = false;
         StartCoroutine(ResetTakingDamage());
     }
 
@@ -230,7 +236,7 @@ public class Boss : MonoBehaviour
         if (!isPoweredUp && damageCounter >= damageThreshold)
         {
             isPoweredUp = true;
-            bossSlash.DisableSlashes();
+            isAttacking = false;
             chaseSpeed *= (1 + speedIncreasePercent / 100);
             damageDealer.damage *= (1 + damageIncreasePercent / 100);
             animator.SetTrigger("PowerUp");
@@ -243,7 +249,6 @@ public class Boss : MonoBehaviour
     public void EndPowerUp()
     {
         isPoweredUp = false;
-        bossSlash.isVFXActive = true;
         chaseSpeed = baseChaseSpeed;
         damageDealer.damage = baseDamage;
         powerUpTimer = 0;

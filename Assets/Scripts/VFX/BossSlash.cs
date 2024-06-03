@@ -44,13 +44,13 @@ public class BossSlash : MonoBehaviour
         }
 
         poweringUp = true;
-        StartCoroutine(ResetBool(poweringUp, 0.5f));
+        StartCoroutine(ResetBool(0.5f));
     }
 
-    IEnumerator ResetBool(bool boolToReset, float delay = 0.1f)
+    IEnumerator ResetBool(float delay = 0.1f)
     {
         yield return new WaitForSeconds(delay);
-        poweringUp = !poweringUp;
+        poweringUp = false;
     }
 
     IEnumerator DisableAfterDelay(GameObject slashObj, float delay)
