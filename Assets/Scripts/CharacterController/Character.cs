@@ -79,6 +79,6 @@ public class Character : MonoBehaviour
 
     public void SpawnSlashVFX()
     {
-        GetComponentInChildren<Slash>().ActivateSlashes();
+        slash.ActivateSlashes();
     }
 }

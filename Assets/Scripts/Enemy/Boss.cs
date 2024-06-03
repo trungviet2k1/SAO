@@ -35,6 +35,7 @@ public class Boss : MonoBehaviour
     Animator animator;
     NavMeshAgent agent;
     BossDamageDealer damageDealer;
+    BossSlash bossSlash;
     float timePassed;
     float powerUpTimer;
     bool isAttacking;
@@ -48,6 +49,7 @@ public class Boss : MonoBehaviour
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         damageDealer = GetComponentInChildren<BossDamageDealer>();
+        bossSlash = GetComponent<BossSlash>();
 
         baseDamage = damageDealer.damage;
         baseChaseSpeed = chaseSpeed;
@@ -108,25 +110,14 @@ public class Boss : MonoBehaviour
         {
             if (!isAttacking)
             {
-                string randomAttackAnimation = attackSkills[Random.Range(0, attackSkills.Length)];
-                animator.SetTrigger(randomAttackAnimation);
-
-                timePassed = 0;
-                isAttacking = true;
-                agent.isStopped = true;
-                animator.SetBool("Chase", false);
+                PerformRandomAttack();
             }
         }
         timePassed += Time.deltaTime;
 
         if (timePassed >= attackCD && Vector3.Distance(player.transform.position, transform.position) <= attackRange)
         {
-            string randomAttackAnimation = attackSkills[Random.Range(0, attackSkills.Length)];
-            animator.SetTrigger(randomAttackAnimation);
-
-            timePassed = 0;
-            isAttacking = true;
-            agent.isStopped = true;
+            PerformRandomAttack();
         }
 
         if (!isAttacking && Vector3.Distance(player.transform.position, transform.position) <= aggroRange)
@@ -134,6 +125,27 @@ public class Boss : MonoBehaviour
             agent.SetDestination(player.transform.position);
             animator.SetBool("Chase", true);
         }
+    }
+
+    private void PerformRandomAttack()
+    {
+        int attackIndex = Random.Range(0, attackSkills.Length);
+        string randomAttackAnimation = attackSkills[attackIndex];
+        animator.SetTrigger(randomAttackAnimation);
+        StartCoroutine(TriggerVFXAfterAnimation(attackIndex));
+
+        timePassed = 0;
+        isAttacking = true;
+        agent.isStopped = true;
+        animator.SetBool("Chase", false);
+    }
+
+    private IEnumerator TriggerVFXAfterAnimation(int attackIndex)
+    {
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        SpawnSlashVFX(attackIndex);
+        isAttacking = false;
+        agent.isStopped = false;
     }
 
     private void HandlePatrol()
@@ -235,6 +247,14 @@ public class Boss : MonoBehaviour
 
         isAttacking = false;
         agent.isStopped = false;
+    }
+
+    public void SpawnSlashVFX(int attackIndex)
+    {
+        if (bossSlash != null)
+        {
+            bossSlash.ActivateSlashes(attackIndex);
+        }
     }
 
     public void HitVFX(Vector3 hitPosition)
