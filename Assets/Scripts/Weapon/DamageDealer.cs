@@ -30,10 +30,10 @@ public class DamageDealer : MonoBehaviour
                     hasDealDamage.Add(hit.transform.gameObject);
                 }
 
-                if (hit.transform.TryGetComponent(out Boss boss) && !hasDealDamage.Contains(hit.transform.gameObject))
+                if (hit.transform.TryGetComponent(out BossHealthSystem bossHealth) && !hasDealDamage.Contains(hit.transform.gameObject))
                 {
-                    boss.TakeDamage(weaponDamage);
-                    boss.HitVFX(hit.point);
+                    bossHealth.TakeDamage(weaponDamage);
+                    bossHealth.HitVFX(hit.point);
                     hasDealDamage.Add(hit.transform.gameObject);
                 }
             }

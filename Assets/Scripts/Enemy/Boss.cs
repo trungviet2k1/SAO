@@ -4,26 +4,26 @@ using UnityEngine.AI;
 
 public class Boss : MonoBehaviour
 {
-    [SerializeField] float health;
-    [SerializeField] GameObject hitVFX;
-    [SerializeField] GameObject ragDoll;
-
-    [Header("Combat")]
-    [SerializeField] string[] attackSkills;
+    [Header("Combat Settings")]
     [SerializeField] float attackCD;
     [SerializeField] float attackRange;
     [SerializeField] float aggroRange;
+    [SerializeField] string[] attackSkills;
 
-    [Header("Patrol")]
+    [Header("Patrol Settings")]
     [SerializeField] Transform[] patrolPoints;
     [SerializeField] float patrolSpeed;
     [SerializeField] float chaseSpeed;
     [SerializeField] float patrolWaitTime;
 
-    [Header("PowerUp")]
+    [Header("Power Up")]
     [SerializeField] float damageIncreasePercent;
     [SerializeField] float speedIncreasePercent;
     [SerializeField] int damageThreshold = 5;
+
+    [HideInInspector] public bool isAttacking;
+    [HideInInspector] public bool isTakingDamage;
+    [HideInInspector] public int damageCounter = 0;
 
     GameObject player;
     Animator animator;
@@ -32,12 +32,9 @@ public class Boss : MonoBehaviour
     BossSlash bossSlash;
     float timePassed;
     float powerUpTimer;
-    bool isAttacking;
     int currentPatrolIndex;
     bool playerDetected;
     float patrolTimer;
-    bool isTakingDamage;
-    int damageCounter = 0;
     bool isPoweredUp = false;
     float baseDamage;
     float baseChaseSpeed;
@@ -196,42 +193,7 @@ public class Boss : MonoBehaviour
         }
     }
 
-    void Die()
-    {
-        Instantiate(ragDoll, transform.position, transform.rotation);
-        Destroy(gameObject);
-    }
-
-    public void TakeDamage(float damageAmount)
-    {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("PowerUp"))
-        {
-            return;
-        }
-
-        health -= damageAmount;
-        animator.SetTrigger("TakeDamage");
-
-        if (health <= 0)
-        {
-            Die();
-        }
-
-        damageCounter++;
-        CheckPowerUp();
-
-        isTakingDamage = true;
-        isAttacking = false;
-        StartCoroutine(ResetTakingDamage());
-    }
-
-    private IEnumerator ResetTakingDamage()
-    {
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        isTakingDamage = false;
-    }
-
-    void CheckPowerUp()
+    public void CheckPowerUp()
     {
         if (!isPoweredUp && damageCounter >= damageThreshold)
         {
@@ -281,12 +243,6 @@ public class Boss : MonoBehaviour
         {
             bossSlash.ActivateSlashes(attackIndex);
         }
-    }
-
-    public void HitVFX(Vector3 hitPosition)
-    {
-        GameObject hit = Instantiate(hitVFX, hitPosition, Quaternion.identity);
-        Destroy(hit, 3f);
     }
 
     private void OnDrawGizmos()
