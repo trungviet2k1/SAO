@@ -37,7 +37,7 @@ ModelImporter:
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 12
-      lastFrame: 80
+      lastFrame: 73
       wrapMode: 0
       orientationOffsetY: 30
       level: 0
@@ -45,34 +45,34 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 0
-      keepOriginalPositionXZ: 1
+      keepOriginalPositionXZ: 0
       heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.30699238
+      - time: 0.32764843
         functionName: StartDealDamage
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.5371117
-        functionName: EndDealDamage
+      - time: 0.4392823
+        functionName: SpawnSlashVFX
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.39151514
-        functionName: SpawnSlashVFX
+      - time: 0.6736909
+        functionName: EndDealDamage
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

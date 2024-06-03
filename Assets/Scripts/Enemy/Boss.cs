@@ -24,12 +24,6 @@ public class Boss : MonoBehaviour
     [SerializeField] float damageIncreasePercent;
     [SerializeField] float speedIncreasePercent;
     [SerializeField] int damageThreshold = 5;
-    int damageCounter = 0;
-    bool isPoweredUp = false;
-
-    float baseDamage;
-    float baseChaseSpeed;
-    float powerUpDuration = 20f;
 
     GameObject player;
     Animator animator;
@@ -42,6 +36,12 @@ public class Boss : MonoBehaviour
     int currentPatrolIndex;
     bool playerDetected;
     float patrolTimer;
+    bool isTakingDamage;
+    int damageCounter = 0;
+    bool isPoweredUp = false;
+    float baseDamage;
+    float baseChaseSpeed;
+    float powerUpDuration = 20f;
 
     void Start()
     {
@@ -108,7 +108,7 @@ public class Boss : MonoBehaviour
 
         if (Vector3.Distance(player.transform.position, transform.position) <= attackRange)
         {
-            if (!isAttacking)
+            if (!isAttacking && !isTakingDamage)
             {
                 PerformRandomAttack();
             }
@@ -117,7 +117,10 @@ public class Boss : MonoBehaviour
 
         if (timePassed >= attackCD && Vector3.Distance(player.transform.position, transform.position) <= attackRange)
         {
-            PerformRandomAttack();
+            if (!isTakingDamage)
+            {
+                PerformRandomAttack();
+            }
         }
 
         if (!isAttacking && Vector3.Distance(player.transform.position, transform.position) <= aggroRange)
@@ -132,20 +135,22 @@ public class Boss : MonoBehaviour
         int attackIndex = Random.Range(0, attackSkills.Length);
         string randomAttackAnimation = attackSkills[attackIndex];
         animator.SetTrigger(randomAttackAnimation);
-        StartCoroutine(TriggerVFXAfterAnimation(attackIndex));
-
         timePassed = 0;
         isAttacking = true;
         agent.isStopped = true;
         animator.SetBool("Chase", false);
+        StartCoroutine(TriggerVFXAfterAnimation(attackIndex));
     }
 
     private IEnumerator TriggerVFXAfterAnimation(int attackIndex)
     {
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        SpawnSlashVFX(attackIndex);
-        isAttacking = false;
-        agent.isStopped = false;
+
+        if (isAttacking)
+        {
+            SpawnSlashVFX(attackIndex);
+            EndDealDamage();
+        }
     }
 
     private void HandlePatrol()
@@ -209,6 +214,15 @@ public class Boss : MonoBehaviour
 
         damageCounter++;
         CheckPowerUp();
+
+        isTakingDamage = true;
+        StartCoroutine(ResetTakingDamage());
+    }
+
+    private IEnumerator ResetTakingDamage()
+    {
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        isTakingDamage = false;
     }
 
     void CheckPowerUp()
@@ -216,18 +230,25 @@ public class Boss : MonoBehaviour
         if (!isPoweredUp && damageCounter >= damageThreshold)
         {
             isPoweredUp = true;
+            bossSlash.DisableSlashes();
             chaseSpeed *= (1 + speedIncreasePercent / 100);
             damageDealer.damage *= (1 + damageIncreasePercent / 100);
             animator.SetTrigger("PowerUp");
+            agent.isStopped = true;
+            bossSlash.PowerUp();
+            powerUpTimer = 0;
         }
     }
 
     public void EndPowerUp()
     {
         isPoweredUp = false;
+        bossSlash.isVFXActive = true;
         chaseSpeed = baseChaseSpeed;
         damageDealer.damage = baseDamage;
         powerUpTimer = 0;
+        agent.isStopped = false;
+        damageCounter = 0;
     }
 
     public void StartDealDamage()

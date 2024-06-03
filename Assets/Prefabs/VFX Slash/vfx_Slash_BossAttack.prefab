@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9035368623106793991}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: vfx_Slash_BossAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7042620314617769803}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.44519448, y: 0.8684551, z: 0.18980016, w: 0.107534}
+  m_LocalRotation: {x: 0.44519, y: 0.86845654, z: 0.18980195, w: 0.1075374}
   m_LocalPosition: {x: -0.174, y: 0.971, z: 1.307}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 8352434381011619102}
   - component: {fileID: 100856058263974153}
   - component: {fileID: 1846251392325249571}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: vfx_Slash_BossAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
