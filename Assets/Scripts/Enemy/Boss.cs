@@ -29,6 +29,7 @@ public class Boss : MonoBehaviour
     Animator animator;
     NavMeshAgent agent;
     BossDamageDealer damageDealer;
+    BossHealthSystem bossHealthSystem;
     BossSlash bossSlash;
     float timePassed;
     float powerUpTimer;
@@ -46,6 +47,7 @@ public class Boss : MonoBehaviour
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         damageDealer = GetComponentInChildren<BossDamageDealer>();
+        bossHealthSystem = GetComponent<BossHealthSystem>();
         bossSlash = GetComponent<BossSlash>();
 
         baseDamage = damageDealer.damage;
@@ -65,6 +67,7 @@ public class Boss : MonoBehaviour
 
         if (player == null)
         {
+            bossHealthSystem.OutRangeOfBoss();
             HandlePlayerDeath();
             return;
         }
@@ -72,11 +75,13 @@ public class Boss : MonoBehaviour
         if (Vector3.Distance(player.transform.position, transform.position) <= aggroRange)
         {
             playerDetected = true;
+            bossHealthSystem.InRangeOfBoss();
             transform.LookAt(player.transform);
         }
         else
         {
             playerDetected = false;
+            bossHealthSystem.OutRangeOfBoss();
             animator.SetBool("Chase", false);
         }
 
@@ -176,6 +181,7 @@ public class Boss : MonoBehaviour
         StopCoroutine(ReturnToPatrolPoints());
         patrolTimer += Time.deltaTime;
         HandlePatrol();
+        bossHealthSystem.ResetHealth();
     }
 
     private IEnumerator ReturnToPatrolPoints()

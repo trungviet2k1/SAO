@@ -31,7 +31,6 @@ public class HealthSystem : MonoBehaviour
     {
         if (healthSlider.value != currentHealth)
         {
-            healthSlider.value = currentHealth;
             UpdateHealthIndex();
         }
     }
