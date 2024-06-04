@@ -20,9 +20,14 @@ public class AttackState : State
         attack = false;
         character.animator.applyRootMotion = true;
         timePassed = 0f;
-        character.animator.SetTrigger("Attack");
+
+        character.IncrementCombo();
+        int comboStep = character.GetCurrentComboCount();
+
+        character.animator.SetTrigger("Attack" + comboStep);
         character.animator.SetFloat("Speed", 0f);
-        character.SpawnSlashVFX();
+
+        character.SpawnSlashVFX(comboStep - 1);
     }
 
     public override void HandleInput()
@@ -34,10 +39,10 @@ public class AttackState : State
             attack = true;
         }
 
-        if (!attackAction.IsPressed())
+        /*if (!attackAction.IsPressed())
         {
             attack = false;
-        }
+        }*/
     }
 
     public override void LogicUpdate()
@@ -54,6 +59,7 @@ public class AttackState : State
         }
         if (timePassed >= clipLength / clipSpeed)
         {
+            character.ResetCombo();
             stateMachine.ChangeState(character.combatting);
             character.animator.SetTrigger("Move");
         }

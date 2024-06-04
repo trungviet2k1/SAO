@@ -23,6 +23,16 @@ public class Character : MonoBehaviour
     [Range(0, 1)]
     public float airControl = 0.5f;
 
+    [Header("Combo")]
+    public int maxComboCount = 3;
+    private int currentComboCount = 0;
+    private float comboTimer = 0f;
+    public float comboWindow = 1.0f;
+
+    [Header("GroundSlash Effect")]
+    public GameObject groundSlashPrefab;
+    public float groundSlashSpeed = 10f;
+
     public StateMachine movementSM;
     public StandingState standing;
     public JumpingState jumping;
@@ -68,8 +78,46 @@ public class Character : MonoBehaviour
 
     void Update()
     {
+        if (currentComboCount > 0)
+        {
+            comboTimer += Time.deltaTime;
+            if (comboTimer > comboWindow)
+            {
+                ResetCombo();
+            }
+        }
+
         movementSM.currentState.HandleInput();
         movementSM.currentState.LogicUpdate();
+    }
+
+    public void ResetCombo()
+    {
+        currentComboCount = 0;
+        comboTimer = 0f;
+    }
+
+    public void IncrementCombo()
+    {
+        currentComboCount = Mathf.Clamp(currentComboCount + 1, 0, maxComboCount);
+        comboTimer = 0f;
+    }
+
+    public int GetCurrentComboCount()
+    {
+        return currentComboCount;
+    }
+
+    public void SpawnGroundSlash()
+    {
+        if (groundSlashPrefab != null)
+        {
+            GameObject groundSlash = Instantiate(groundSlashPrefab, transform.position + transform.forward, Quaternion.identity);
+            if (groundSlash.TryGetComponent<Rigidbody>(out var rb))
+            {
+                rb.velocity = transform.forward * groundSlashSpeed;
+            }
+        }
     }
 
     void FixedUpdate()
@@ -77,8 +125,8 @@ public class Character : MonoBehaviour
         movementSM.currentState.PhysicsUpdate();
     }
 
-    public void SpawnSlashVFX()
+    public void SpawnSlashVFX(int index)
     {
-        slash.ActivateSlashes();
+        slash.ActivateSlash(index);
     }
 }

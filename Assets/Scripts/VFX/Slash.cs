@@ -19,21 +19,21 @@ public class Slash : MonoBehaviour
         }
     }
 
-    public void ActivateSlashes()
+    public void ActivateSlash(int index)
     {
-        StartCoroutine(SlashAttacks());
+        if (index >= 0 && index < vfxSlash.Count)
+        {
+            StartCoroutine(ActivateSingleSlash(vfxSlash[index]));
+        }
     }
 
-    private IEnumerator SlashAttacks()
+    private IEnumerator ActivateSingleSlash(SlashVFX slash)
     {
-        foreach (var slash in vfxSlash)
-        {
-            yield return new WaitForSeconds(slash.delay);
-            slash.slashObj.SetActive(true);
-        }
+        yield return new WaitForSeconds(slash.delay);
+        slash.slashObj.SetActive(true);
 
         yield return new WaitForSeconds(1);
-        DisableSlashes();
+        slash.slashObj.SetActive(false);
     }
 }
 
