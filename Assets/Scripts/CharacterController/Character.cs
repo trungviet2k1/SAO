@@ -42,6 +42,8 @@ public class Character : MonoBehaviour
     public SprintJumpState sprintJumping;
     public CombatState combatting;
     public AttackState attacking;
+    public RollState rolling;
+    public CombatRollState combatRolling;
 
     [HideInInspector] public float gravityValue = -9.81f;
     [HideInInspector] public float normalColliderHeight;
@@ -69,6 +71,8 @@ public class Character : MonoBehaviour
         sprintJumping = new SprintJumpState(this, movementSM);
         combatting = new CombatState(this, movementSM);
         attacking = new AttackState(this, movementSM);
+        rolling = new RollState(this, movementSM);
+        combatRolling = new CombatRollState(this, movementSM);
 
         movementSM.Initialize(standing);
 
@@ -90,6 +94,12 @@ public class Character : MonoBehaviour
         movementSM.currentState.HandleInput();
         movementSM.currentState.LogicUpdate();
     }
+
+    public bool IsAttackButtonPressed()
+    {
+        return playerInput.actions["Attack"].triggered;
+    }
+
 
     public void ResetCombo()
     {
@@ -116,6 +126,7 @@ public class Character : MonoBehaviour
             if (groundSlash.TryGetComponent<Rigidbody>(out var rb))
             {
                 rb.velocity = transform.forward * groundSlashSpeed;
+                groundSlash.transform.rotation = Quaternion.LookRotation(rb.velocity);
             }
         }
     }

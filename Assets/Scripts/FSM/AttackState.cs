@@ -34,15 +34,10 @@ public class AttackState : State
     {
         base.HandleInput();
 
-        if (attackAction.triggered)
+        if (character.IsAttackButtonPressed())
         {
             attack = true;
         }
-
-        /*if (!attackAction.IsPressed())
-        {
-            attack = false;
-        }*/
     }
 
     public override void LogicUpdate()
@@ -53,15 +48,18 @@ public class AttackState : State
         clipLength = character.animator.GetCurrentAnimatorClipInfo(1)[0].clip.length;
         clipSpeed = character.animator.GetCurrentAnimatorStateInfo(1).speed;
 
-        if (timePassed >= clipLength / clipSpeed && attack)
-        {
-            stateMachine.ChangeState(character.attacking);
-        }
         if (timePassed >= clipLength / clipSpeed)
         {
-            character.ResetCombo();
-            stateMachine.ChangeState(character.combatting);
-            character.animator.SetTrigger("Move");
+            if (attack)
+            {
+                stateMachine.ChangeState(character.attacking);
+            }
+            else
+            {
+                character.ResetCombo();
+                stateMachine.ChangeState(character.combatting);
+                character.animator.SetTrigger("Move");
+            }
         }
     }
 

@@ -2259,7 +2259,7 @@ GameObject:
   - component: {fileID: 9161939159151901889}
   m_Layer: 9
   m_Name: Skeleton Warrior
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

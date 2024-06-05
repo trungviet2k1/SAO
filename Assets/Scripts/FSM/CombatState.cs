@@ -8,6 +8,7 @@ public class CombatState : State
     bool sheathWeapon;
     float playerSpeed;
     bool attack;
+    bool roll;
 
     Vector3 cVelocity;
 
@@ -22,6 +23,7 @@ public class CombatState : State
         base.Enter();
 
         sheathWeapon = false;
+        roll = false;
         input = Vector2.zero;
         currentVelocity = Vector3.zero;
         gravityVelocity.y = 0;
@@ -47,6 +49,11 @@ public class CombatState : State
             attack = true;
         }
 
+        if (rollAction.triggered && character.combatRolling.CanRoll())
+        {
+            roll = true;
+        }
+
         input = moveAction.ReadValue<Vector2>();
         velocity = new Vector3(input.x, 0, input.y);
 
@@ -70,6 +77,12 @@ public class CombatState : State
         {
             character.animator.SetTrigger("Attack1");
             stateMachine.ChangeState(character.attacking);
+        }
+
+        if (roll)
+        {
+            character.animator.SetTrigger("Roll");
+            stateMachine.ChangeState(character.combatRolling);
         }
     }
 

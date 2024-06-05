@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 7669039056924549767}
   m_Layer: 9
   m_Name: Warrok
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -496,13 +496,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a9b30a57f288845b263437107eecdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  hitVFX: {fileID: 4867016065218243288, guid: d97ac88d4dd0d7c4198ce16c0c7a67b0, type: 3}
-  ragDoll: {fileID: 3635611934202786420, guid: 22e2619981eeba343b41265fa77c6386, type: 3}
-  attackSkills: []
   attackCD: 1
   attackRange: 2
   aggroRange: 15
+  attackSkills: []
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -520,6 +517,9 @@ MonoBehaviour:
   damageIncreasePercent: 0
   speedIncreasePercent: 0
   damageThreshold: 5
+  isAttacking: 0
+  isTakingDamage: 0
+  damageCounter: 0
 --- !u!1 &1346975016757423070
 GameObject:
   m_ObjectHideFlags: 0

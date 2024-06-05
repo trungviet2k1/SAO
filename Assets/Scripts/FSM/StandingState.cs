@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StandingState : State
 {
@@ -8,6 +8,7 @@ public class StandingState : State
     Vector3 currentVelocity;
     bool grounded;
     bool sprint;
+    bool roll;
     float playerSpeed;
     bool drawWeapon;
 
@@ -26,6 +27,7 @@ public class StandingState : State
         jump = false;
         crouch = false;
         sprint = false;
+        roll = false;
         drawWeapon = false;
         input = Vector2.zero;
         currentVelocity = Vector3.zero;
@@ -52,6 +54,10 @@ public class StandingState : State
         if (sprintAction.triggered)
         {
             sprint = true;
+        }
+        if (rollAction.triggered && character.rolling.CanRoll())
+        {
+            roll = true;
         }
         if (drawWeaponAction.triggered)
         {
@@ -82,6 +88,10 @@ public class StandingState : State
         if (crouch)
         {
             stateMachine.ChangeState(character.crouching);
+        }
+        if (roll)
+        {
+            stateMachine.ChangeState(character.rolling);
         }
         if (drawWeapon)
         {

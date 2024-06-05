@@ -121,6 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1324145846650647608}
   - component: {fileID: 4245623309502157546}
+  - component: {fileID: 1447295877245641869}
   - component: {fileID: 1889595192090125724}
   m_Layer: 0
   m_Name: vfx_GroundSlash
@@ -172,6 +173,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!65 &1447295877245641869
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8498699295436404045}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.05768182, y: 2.8736668, z: 1.8220124}
+  m_Center: {x: -0.0008778535, y: 1.3185444, z: 1.0242438}
 --- !u!114 &1889595192090125724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,3 +206,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbcc5ca27e2f40479469f31bbc30464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
+  lifeTime: 5

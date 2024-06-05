@@ -8,19 +8,18 @@ public class DamageDealer : MonoBehaviour
 
     [SerializeField] float weaponLength;
     [SerializeField] float weaponDamage;
-    
+
     void Start()
     {
         canDealDamage = false;
         hasDealDamage = new List<GameObject>();
     }
 
-    
     void Update()
     {
         if (canDealDamage)
         {
-            int layerMask = 1 << 9;
+            int layerMask = 1 << 9; // Assumes enemies are on layer 9
             if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, weaponLength, layerMask))
             {
                 if (hit.transform.TryGetComponent(out Enemy enemy) && !hasDealDamage.Contains(hit.transform.gameObject))
