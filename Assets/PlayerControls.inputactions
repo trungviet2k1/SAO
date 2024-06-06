@@ -24,6 +24,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "08a3b6d9-83db-43d6-910b-00baad7fc385",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "3a757ae7-1016-4088-a9c7-2320defaafaa",
@@ -51,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Roll",
+                    "type": "Button",
+                    "id": "dfa8fc60-4356-4f95-bc9f-561a05dfb74d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "DrawWeapon",
                     "type": "Button",
                     "id": "f4bf217c-32e8-439a-bf71-515794cd898f",
@@ -66,15 +84,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Roll",
-                    "type": "Button",
-                    "id": "dfa8fc60-4356-4f95-bc9f-561a05dfb74d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -208,6 +217,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "13ffdb94-b790-42c4-8d41-be7da570f11d",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
