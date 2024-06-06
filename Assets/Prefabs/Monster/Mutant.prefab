@@ -1250,7 +1250,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
   patrolSpeed: 2
   chaseSpeed: 7
   patrolWaitTime: 1.5
