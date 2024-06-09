@@ -39,7 +39,7 @@ public class ThirdPersonCamera : MonoBehaviour
             Cursor.visible = false;
         }
 
-        if (DialogueSystem.Instance.IsInDialogue)
+        if (DialogueSystem.Instance.IsInDialogue || InventorySystem.Instance.IsInventoryOpen)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

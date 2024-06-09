@@ -25,6 +25,7 @@ public class Interactor : MonoBehaviour
         interactAction = GetComponent<PlayerInput>().actions["Interact"];
         interactAction.performed += Interact;
     }
+
     void Update()
     {
         direction = cameraTransform.forward;
@@ -45,6 +46,7 @@ public class Interactor : MonoBehaviour
             interactableTarget = null;
         }
     }
+
     private void Interact(InputAction.CallbackContext obj)
     {
         if (interactableTarget != null)
@@ -59,12 +61,14 @@ public class Interactor : MonoBehaviour
             print("nothing to interact!");
         }
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(origin, origin + direction * hitDistance);
         Gizmos.DrawWireSphere(hitPosition, interactingRadius);
     }
+
     private void OnDestroy()
     {
         interactAction.performed -= Interact;

@@ -4,8 +4,10 @@ using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour
 {
+    public static HealthSystem Instance;
+
     [Header ("Player Health Setting")]
-    [SerializeField] float maxHealth;
+    [SerializeField] public float maxHealth;
     [HideInInspector] public float currentHealth;
 
     [Header ("UI")]
@@ -17,6 +19,18 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] GameObject ragdoll;
 
     Animator animator;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -68,5 +82,10 @@ public class HealthSystem : MonoBehaviour
     {
         healthIndex.text = $"{currentHealth} / {maxHealth}";
         healthSlider.value = currentHealth;
+
+        if (InventorySystem.Instance != null)
+        {
+            InventorySystem.Instance.UpdateHealthValue(currentHealth);
+        }
     }
 }

@@ -2,16 +2,21 @@ using UnityEngine;
 
 public class InteractableChest : Interactable
 {
-    private Animator animator;
+    [Header("Chest status")]
+    public GameObject closeChest;
+    public GameObject openChest;
+
     [Header("Locked Chest Options")]
     public bool isLocked;
     public string chestID;
     public bool isOpen;
 
+
     public override void Start()
     {
         base.Start();
-        animator = GetComponent<Animator>();
+        closeChest.SetActive(true);
+        openChest.SetActive(false);
         isOpen = false;
     }
 
@@ -59,7 +64,8 @@ public class InteractableChest : Interactable
     void CloseChest()
     {
         //Events.ShowLoot(false);
-        animator.SetTrigger("CloseChest");
+        closeChest.SetActive(true);
+        openChest.SetActive(false);
         isOpen = !isOpen;
     }
 
@@ -67,7 +73,8 @@ public class InteractableChest : Interactable
     {
         //GetComponent<ItemContainer>().SetLoot();
         //Events.ShowLoot(true);
-        animator.SetTrigger("OpenChest");
+        openChest.SetActive(true);
+        closeChest.SetActive(false);
         isOpen = !isOpen;
 
         //Events.OnShowLoot += TriggerChest;
