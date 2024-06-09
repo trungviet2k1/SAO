@@ -18,7 +18,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
         if (target == null)
         {
-            Debug.LogError("Target not assigned for ThirdPersonOrbitCamera.");
+            Debug.LogError("Target not assigned for ThirdPersonCamera.");
             return;
         }
 
@@ -39,7 +39,12 @@ public class ThirdPersonCamera : MonoBehaviour
             Cursor.visible = false;
         }
 
-        if (Cursor.lockState == CursorLockMode.Locked)
+        if (DialogueSystem.Instance.IsInDialogue)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else if (Cursor.lockState == CursorLockMode.Locked)
         {
             float rotateX = Input.GetAxis("Mouse X") * mouseSensitivity;
             float rotateY = Input.GetAxis("Mouse Y") * mouseSensitivity;

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4456220347728281339}
   - component: {fileID: 2342330499769445192}
   - component: {fileID: 5733113474017749277}
+  - component: {fileID: 1029202335812114354}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -70,7 +71,43 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 73160ccc-9c4c-4ed4-a42a-9ba356837b50
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5366bb6a-7fd7-4880-bd36-cb55fbe762f8
+    m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 08a3b6d9-83db-43d6-910b-00baad7fc385
+    m_ActionName: Player/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3a757ae7-1016-4088-a9c7-2320defaafaa
+    m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2f71a649-6658-4bf2-a212-cd8b11d3db24
+    m_ActionName: Player/Crouch[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3860644e-3854-4e31-b7da-404faf215ee8
+    m_ActionName: Player/Sprint[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dfa8fc60-4356-4f95-bc9f-561a05dfb74d
+    m_ActionName: Player/Roll[/Keyboard/alt]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f4bf217c-32e8-439a-bf71-515794cd898f
+    m_ActionName: Player/DrawWeapon[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 147f03fc-dcf1-471d-aec0-2ac4ee366516
+    m_ActionName: Player/Attack[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -209,6 +246,21 @@ MonoBehaviour:
     delay: 0.15
   - slashObj: {fileID: 8673619796266534482}
     delay: 0.15
+--- !u!114 &1029202335812114354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87537654551757873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f586dd5ea0bfa1469a53186bdd8ff4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxInteractingDistance: 10
+  interactingRadius: 1
+  interactableTarget: {fileID: 0}
 --- !u!1 &104564104772124530
 GameObject:
   m_ObjectHideFlags: 0

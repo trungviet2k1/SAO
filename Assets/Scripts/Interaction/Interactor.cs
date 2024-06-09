@@ -29,9 +29,8 @@ public class Interactor : MonoBehaviour
     {
         direction = cameraTransform.forward;
         origin = cameraTransform.position;
-        RaycastHit hit;
 
-        if (Physics.SphereCast(origin, interactingRadius, direction, out hit, maxInteractingDistance, layerMask))
+        if (Physics.SphereCast(origin, interactingRadius, direction, out RaycastHit hit, maxInteractingDistance, layerMask))
         {
             hitPosition = hit.point;
             hitDistance = hit.distance;

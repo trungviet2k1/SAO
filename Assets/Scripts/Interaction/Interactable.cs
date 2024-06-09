@@ -42,6 +42,7 @@ public class Interactable : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, interactionDistance);
     }
+
     private void OnDestroy()
     {
         TargetOff();
