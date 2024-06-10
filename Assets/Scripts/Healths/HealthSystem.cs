@@ -82,10 +82,5 @@ public class HealthSystem : MonoBehaviour
     {
         healthIndex.text = $"{currentHealth} / {maxHealth}";
         healthSlider.value = currentHealth;
-
-        if (InventorySystem.Instance != null)
-        {
-            InventorySystem.Instance.UpdateHealthValue(currentHealth);
-        }
     }
 }

@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2ead47148c5fa4c8a331a9a546339c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableName: Chest
+  interactableName: "R\u01B0\u01A1ng"
   interactionDistance: 1.5
   isInteractable: 1
   closeChest: {fileID: 576414571499407277}

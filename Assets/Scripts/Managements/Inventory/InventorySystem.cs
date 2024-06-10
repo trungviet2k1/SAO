@@ -1,3 +1,4 @@
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,6 +12,9 @@ public class InventorySystem : MonoBehaviour
     public TextMeshProUGUI healthValue;
     public TextMeshProUGUI manaValue;
     public TextMeshProUGUI armorValue;
+    public TextMeshProUGUI weightValue;
+    public Transform itemSlotContainer;
+    public List<ItemSlot> itemSlots;
 
     private InputAction inventoryAction;
 
@@ -41,7 +45,10 @@ public class InventorySystem : MonoBehaviour
 
     void OnDestroy()
     {
-        inventoryAction.performed -= ToggleInventory;
+        if (inventoryAction != null)
+        {
+            inventoryAction.performed -= ToggleInventory;
+        }
     }
 
     private void ToggleInventory(InputAction.CallbackContext context)
@@ -51,8 +58,30 @@ public class InventorySystem : MonoBehaviour
 
         if (IsInventoryOpen)
         {
-            UpdateHealthValue(HealthSystem.Instance.currentHealth);
+            UpdateInventory();
         }
+    }
+
+    public void UpdateInventory()
+    {
+        foreach (ItemSlot slot in itemSlots)
+        {
+            if (slot.transform.childCount > 0)
+            {
+                Destroy(slot.transform.GetChild(0).gameObject);
+            }
+        }
+
+        for (int i = 0; i < InventoryManager.Instance.inventoryItems.Count && i < itemSlots.Count; i++)
+        {
+            Item item = InventoryManager.Instance.inventoryItems[i];
+            ItemSlot slot = itemSlots[i];
+
+            GameObject itemObject = Instantiate(item.prefab, slot.transform);
+            itemObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        }
+
+        weightValue.text = $"{InventoryManager.Instance.currentBagWeight} / {InventoryManager.Instance.maxBagWeight}";
     }
 
     public void UpdateHealthValue(float currentHealth)

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3890124418968616087
+--- !u!1 &7525710534421489103
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2735247795666187985}
-  - component: {fileID: 507907754012570075}
-  - component: {fileID: 4684565103409688875}
-  m_Layer: 13
-  m_Name: Sword
+  - component: {fileID: 3066370141997408880}
+  - component: {fileID: 4219080314645594226}
+  - component: {fileID: 934629934299076148}
+  - component: {fileID: 9074894435173209972}
+  - component: {fileID: 2403679650622280065}
+  m_Layer: 12
+  m_Name: SwordModel
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2735247795666187985
+--- !u!4 &3066370141997408880
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3890124418968616087}
+  m_GameObject: {fileID: 7525710534421489103}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.7190091, y: 0.3032544, z: -0.03902045, w: 0.62413156}
+  m_LocalPosition: {x: 252.04, y: 0.718, z: 244.492}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 907332516420454988}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &507907754012570075
+  m_LocalEulerAnglesHint: {x: 112.901, y: -55.951996, z: -84.54498}
+--- !u!33 &4219080314645594226
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3890124418968616087}
+  m_GameObject: {fileID: 7525710534421489103}
   m_Mesh: {fileID: 4300000, guid: 21ca816de6f3abd4cbee2c0462c8a186, type: 3}
---- !u!23 &4684565103409688875
+--- !u!23 &934629934299076148
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3890124418968616087}
+  m_GameObject: {fileID: 7525710534421489103}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -84,49 +85,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &7624866861287688535
-GameObject:
+--- !u!65 &9074894435173209972
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 907332516420454988}
-  - component: {fileID: 7384792909731418202}
-  m_Layer: 13
-  m_Name: DamageDealer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &907332516420454988
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7624866861287688535}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.152, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2735247795666187985}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7384792909731418202
+  m_GameObject: {fileID: 7525710534421489103}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.2911798, y: 1.3027449, z: 0.14509304}
+  m_Center: {x: -0.0002251179, y: 0.4403875, z: -0.0000038567273}
+--- !u!114 &2403679650622280065
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7624866861287688535}
+  m_GameObject: {fileID: 7525710534421489103}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79f7c10fe79f3f14fac2b5c3dc6dcace, type: 3}
+  m_Script: {fileID: 11500000, guid: 325f04dd57eb96942bfa36edb7edc9e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponLength: 1
-  weaponDamage: 1
+  interactableName: Sword
+  interactionDistance: 2
+  isInteractable: 1
+  item: {fileID: 11400000, guid: f09d40c9e0a9b6144a06587b70f02181, type: 2}
