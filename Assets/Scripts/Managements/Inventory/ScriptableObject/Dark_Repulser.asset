@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab11c7e593656254aae695b0e24a9978, type: 3}
-  m_Name: Sword
+  m_Name: Dark_Repulser
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2525260479370453852, guid: a7c16f3a25249ce46865d21c95d216b8, type: 3}
-  itemName: Sword
-  weight: 1.7
+  prefab: {fileID: 2525260479370453852, guid: 05602604484bf4742b93d7e695253b77, type: 3}
+  itemName: Dark Repulser
+  weight: 1.1
   itemType: 6
-  prefab3DName: Sword
+  prefab3DName: Dark Repulser

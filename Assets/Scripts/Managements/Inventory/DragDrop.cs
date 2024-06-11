@@ -10,7 +10,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     Vector3 startPosition;
     Transform startParent;
 
-    private void Awake()
+    void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
@@ -40,6 +40,11 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         {
             transform.position = startPosition;
             transform.SetParent(startParent);
+        }
+
+        if (startParent.TryGetComponent<EquipSlot>(out var equipSlot))
+        {
+            equipSlot.UnequipItem();
         }
 
         canvasGroup.alpha = 1f;

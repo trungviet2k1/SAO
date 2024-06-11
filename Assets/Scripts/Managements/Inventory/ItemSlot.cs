@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class ItemSlot : MonoBehaviour, IDropHandler
@@ -21,7 +21,13 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         if (!Item)
         {
             DragDrop.itemBeingDragged.transform.SetParent(transform);
-            DragDrop.itemBeingDragged.transform.localPosition = new Vector2(0, 0);
+            DragDrop.itemBeingDragged.transform.localPosition = Vector2.zero;
+
+            EquipSlot equipSlot = DragDrop.itemBeingDragged.GetComponentInParent<EquipSlot>();
+            if (equipSlot != null)
+            {
+                equipSlot.UnequipItem();
+            }
         }
     }
 }

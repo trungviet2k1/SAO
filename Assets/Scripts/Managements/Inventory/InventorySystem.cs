@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class InventorySystem : MonoBehaviour
 {
-    public static InventorySystem Instance;
+    public static InventorySystem Instance { get; set; }
 
     [Header("UI References")]
     public GameObject inventoryUI;
@@ -15,6 +15,7 @@ public class InventorySystem : MonoBehaviour
     public TextMeshProUGUI weightValue;
     public Transform itemSlotContainer;
     public List<ItemSlot> itemSlots;
+    public List<EquipSlot> equipSlots;
 
     private InputAction inventoryAction;
 
@@ -22,13 +23,13 @@ public class InventorySystem : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
+        if (Instance != null && Instance != this)
         {
-            Instance = this;
+            Destroy(gameObject);
         }
         else
         {
-            Destroy(gameObject);
+            Instance = this;
         }
 
         inventoryUI.SetActive(false);
@@ -55,33 +56,28 @@ public class InventorySystem : MonoBehaviour
     {
         IsInventoryOpen = !IsInventoryOpen;
         inventoryUI.SetActive(IsInventoryOpen);
-
-        if (IsInventoryOpen)
-        {
-            UpdateInventory();
-        }
     }
 
     public void UpdateInventory()
     {
-        foreach (ItemSlot slot in itemSlots)
+        var inventoryManager = InventoryManager.Instance;
+        weightValue.text = $"{inventoryManager.GetCurrentBagWeight()} / {inventoryManager.GetMaxBagWeight()}";
+
+        foreach (Transform child in itemSlotContainer)
         {
-            if (slot.transform.childCount > 0)
+            if (child.childCount > 0)
             {
-                Destroy(slot.transform.GetChild(0).gameObject);
+                Destroy(child.GetChild(0).gameObject);
             }
         }
 
-        for (int i = 0; i < InventoryManager.Instance.inventoryItems.Count && i < itemSlots.Count; i++)
+        for (int i = 0; i < inventoryManager.inventoryItems.Count; i++)
         {
-            Item item = InventoryManager.Instance.inventoryItems[i];
-            ItemSlot slot = itemSlots[i];
-
-            GameObject itemObject = Instantiate(item.prefab, slot.transform);
+            Item item = inventoryManager.inventoryItems[i];
+            GameObject itemObject = Instantiate(item.prefab, itemSlots[i].transform);
             itemObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+            itemObject.AddComponent<ItemComponent>().item = item;
         }
-
-        weightValue.text = $"{InventoryManager.Instance.currentBagWeight} / {InventoryManager.Instance.maxBagWeight}";
     }
 
     public void UpdateHealthValue(float currentHealth)

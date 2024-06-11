@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class InteractableNameText : MonoBehaviour
@@ -17,17 +17,17 @@ public class InteractableNameText : MonoBehaviour
     {
         if (interactable is PickUpItem)
         {
-            text.text = interactable.interactableName + "\n [E] Pick Up";
+            text.text = interactable.interactableName + "\n [E] Nhặt";
         }
         else if (interactable is InteractableChest)
         {
             if (((InteractableChest)interactable).isOpen)
             {
-                text.text = interactable.interactableName + "\n [E] Close";
+                text.text = interactable.interactableName + "\n [E] Đóng";
             }
             else
             {
-                text.text = interactable.interactableName + "\n [E] Open";
+                text.text = interactable.interactableName + "\n [E] Mở";
             }
         }
         else if (interactable is InteractableLoot)
@@ -36,7 +36,7 @@ public class InteractableNameText : MonoBehaviour
         }
         else if (interactable is InteractableNPC)
         {
-            text.text = interactable.interactableName + "\n [E] Speak";
+            text.text = interactable.interactableName + "\n [E] Nói chuyện";
         }
         else
         {
