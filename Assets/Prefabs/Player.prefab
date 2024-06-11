@@ -210,7 +210,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHolder: {fileID: 4128064189135579100}
-  weapon: {fileID: 3890124418968616087, guid: 338c6e1c85d2f604184a3a46f7d9171d, type: 3}
   weaponSheath: {fileID: 1290717987765275085}
 --- !u!114 &2342330499769445192
 MonoBehaviour:
