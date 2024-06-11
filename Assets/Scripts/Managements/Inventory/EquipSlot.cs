@@ -21,15 +21,14 @@ public class EquipSlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        GameObject droppedItem = DragDrop.itemBeingDragged;
-        Item item = droppedItem.GetComponent<ItemComponent>().item;
+        Item item = DragDrop.itemBeingDragged.GetComponent<ItemComponent>().item;
 
         if (item.itemType == equipType)
         {
             if (!Item)
             {
-                droppedItem.transform.SetParent(transform);
-                droppedItem.transform.localPosition = Vector2.zero;
+                DragDrop.itemBeingDragged.transform.SetParent(transform);
+                DragDrop.itemBeingDragged.transform.localPosition = Vector2.zero;
 
                 if (equipType == ItemType.Weapon)
                 {
@@ -56,6 +55,9 @@ public class EquipSlot : MonoBehaviour, IDropHandler
             {
                 Destroy(transform.GetChild(0).gameObject);
             }
+
+            EquipmentSystem.Instance.UnEquipWeapon();
+            equippedItem = null;
         }
     }
 }

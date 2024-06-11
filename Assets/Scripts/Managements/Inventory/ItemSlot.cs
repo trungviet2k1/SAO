@@ -18,16 +18,23 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
+        GameObject droppedItem = DragDrop.itemBeingDragged;
+
         if (!Item)
         {
-            DragDrop.itemBeingDragged.transform.SetParent(transform);
-            DragDrop.itemBeingDragged.transform.localPosition = Vector2.zero;
+            droppedItem.transform.SetParent(transform);
+            droppedItem.transform.localPosition = Vector2.zero;
 
-            EquipSlot equipSlot = DragDrop.itemBeingDragged.GetComponentInParent<EquipSlot>();
+            EquipSlot equipSlot = droppedItem.GetComponentInParent<EquipSlot>();
             if (equipSlot != null)
             {
                 equipSlot.UnequipItem();
             }
+        }
+        else
+        {
+            droppedItem.transform.SetParent(transform, true);
+            droppedItem.transform.position = Vector2.zero;
         }
     }
 }

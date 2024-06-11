@@ -19,6 +19,8 @@ public class InventorySystem : MonoBehaviour
 
     private InputAction inventoryAction;
 
+    private readonly Dictionary<Item, int> itemPositions = new();
+
     public bool IsInventoryOpen { get; private set; } = false;
 
     void Awake()
@@ -63,6 +65,16 @@ public class InventorySystem : MonoBehaviour
         var inventoryManager = InventoryManager.Instance;
         weightValue.text = $"{inventoryManager.GetCurrentBagWeight()} / {inventoryManager.GetMaxBagWeight()}";
 
+        itemPositions.Clear();
+        for (int i = 0; i < itemSlots.Count; i++)
+        {
+            if (itemSlots[i].Item != null)
+            {
+                Item item = itemSlots[i].Item.GetComponent<ItemComponent>().item;
+                itemPositions[item] = i;
+            }
+        }
+
         foreach (Transform child in itemSlotContainer)
         {
             if (child.childCount > 0)
@@ -74,7 +86,8 @@ public class InventorySystem : MonoBehaviour
         for (int i = 0; i < inventoryManager.inventoryItems.Count; i++)
         {
             Item item = inventoryManager.inventoryItems[i];
-            GameObject itemObject = Instantiate(item.prefab, itemSlots[i].transform);
+            int slotIndex = itemPositions.ContainsKey(item) ? itemPositions[item] : i;
+            GameObject itemObject = Instantiate(item.prefab, itemSlots[slotIndex].transform);
             itemObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             itemObject.AddComponent<ItemComponent>().item = item;
         }

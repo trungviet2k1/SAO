@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
@@ -7,8 +7,8 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     private CanvasGroup canvasGroup;
 
     public static GameObject itemBeingDragged;
-    Vector3 startPosition;
-    Transform startParent;
+    public static Vector3 startPosition;
+    public static Transform startParent;
 
     void Awake()
     {
