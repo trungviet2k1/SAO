@@ -19,7 +19,7 @@ public class Boss : MonoBehaviour
     [Header("Power Up")]
     [SerializeField] float damageIncreasePercent;
     [SerializeField] float speedIncreasePercent;
-    [SerializeField] int damageThreshold = 5;
+    [SerializeField] int damageThreshold;
 
     [HideInInspector] public bool isAttacking;
     [HideInInspector] public bool isTakingDamage;
@@ -201,7 +201,7 @@ public class Boss : MonoBehaviour
 
     public void CheckPowerUp()
     {
-        if (!isPoweredUp && damageCounter >= damageThreshold)
+        if (!isPoweredUp && damageCounter >= damageThreshold && bossHealthSystem.currentHealth >= 0)
         {
             isPoweredUp = true;
             isAttacking = false;

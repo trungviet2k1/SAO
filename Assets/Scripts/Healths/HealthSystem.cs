@@ -12,11 +12,14 @@ public class HealthSystem : MonoBehaviour
 
     [Header ("UI")]
     [SerializeField] Slider healthSlider;
-    [SerializeField] TextMeshProUGUI healthIndex;
+    [SerializeField] TextMeshProUGUI healthValue;
 
     [Header ("Effect and Ragdoll")]
     [SerializeField] GameObject hitVFX;
     [SerializeField] GameObject ragdoll;
+
+    public delegate void HealthChangedDelegate(float currentHealth);
+    public event HealthChangedDelegate OnHealthChanged;
 
     Animator animator;
 
@@ -38,14 +41,14 @@ public class HealthSystem : MonoBehaviour
         healthSlider.maxValue = maxHealth;
         healthSlider.value = currentHealth;
         animator = GetComponent<Animator>();
-        UpdateHealthIndex();
+        UpdateHealthValue();
     }
 
     void Update()
     {
         if (healthSlider.value != currentHealth)
         {
-            UpdateHealthIndex();
+            UpdateHealthValue();
         }
     }
 
@@ -57,12 +60,12 @@ public class HealthSystem : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            UpdateHealthIndex();
+            UpdateHealthValue();
             Die();
         }
         else
         {
-            UpdateHealthIndex();
+            UpdateHealthValue();
         }
     }
 
@@ -78,9 +81,11 @@ public class HealthSystem : MonoBehaviour
         Destroy(hit, 3f);
     }
 
-    void UpdateHealthIndex()
+    void UpdateHealthValue()
     {
-        healthIndex.text = $"{currentHealth} / {maxHealth}";
+        healthValue.text = $"{currentHealth} / {maxHealth}";
         healthSlider.value = currentHealth;
+
+        OnHealthChanged?.Invoke(currentHealth);
     }
 }

@@ -59,7 +59,7 @@ public class StandingState : State
         {
             roll = true;
         }
-        if (EquipmentSystem.Instance.IsWeaponEquipped())
+        if (EquipmentSystem.Instance.IsWeaponEquipped() && InventorySystem.Instance.IsInventoryOpen == false)
         {
             if (drawWeaponAction.triggered)
             {

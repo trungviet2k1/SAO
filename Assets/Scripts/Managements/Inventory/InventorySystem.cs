@@ -8,7 +8,13 @@ public class InventorySystem : MonoBehaviour
 {
     public static InventorySystem Instance { get; set; }
 
-    [Header("UI References")]
+    [Header("Confirm Dialogue UI")]
+    public GameObject confirmationDialogUI;
+    public TextMeshProUGUI confirmationDialogText;
+    public Button confirmButton;
+    public Button cancelButton;
+
+    [Header("Inventory UI")]
     public GameObject inventoryUI;
     public TextMeshProUGUI levelValue;
     public TextMeshProUGUI expValue;
@@ -17,13 +23,15 @@ public class InventorySystem : MonoBehaviour
     public TextMeshProUGUI manaValue;
     public TextMeshProUGUI armorValue;
     public TextMeshProUGUI weightValue;
+    
+
+    [Header("Slot List")]
     public Transform itemSlotContainer;
     public List<ItemSlot> itemSlots;
     public List<EquipSlot> equipSlots;
 
     private InputAction inventoryAction;
     private InputAction addXPAction;
-
     private readonly Dictionary<Item, int> itemPositions = new();
 
     public bool IsInventoryOpen { get; private set; } = false;
@@ -40,6 +48,7 @@ public class InventorySystem : MonoBehaviour
         }
 
         inventoryUI.SetActive(false);
+        confirmationDialogUI.SetActive(false);
     }
 
     void Start()
@@ -53,6 +62,10 @@ public class InventorySystem : MonoBehaviour
 
         CharacterLevelSystem.Instance.OnLevelUp += UpdateLevelValue;
         CharacterLevelSystem.Instance.OnXPChanged += UpdateExpValue;
+        HealthSystem.Instance.OnHealthChanged += UpdateHealthValue;
+
+        confirmButton.onClick.AddListener(OnConfirmDelete);
+        cancelButton.onClick.AddListener(OnCancelDelete);
 
         UpdateHealthValue(HealthSystem.Instance.currentHealth);
         UpdateLevelValue();
@@ -71,6 +84,8 @@ public class InventorySystem : MonoBehaviour
             CharacterLevelSystem.Instance.OnLevelUp -= UpdateLevelValue;
             CharacterLevelSystem.Instance.OnXPChanged -= UpdateExpValue;
         }
+
+        HealthSystem.Instance.OnHealthChanged -= UpdateHealthValue;
     }
 
     private void ToggleInventory(InputAction.CallbackContext context)
@@ -82,6 +97,34 @@ public class InventorySystem : MonoBehaviour
     private void AddXPTest(InputAction.CallbackContext context)
     {
         CharacterLevelSystem.Instance.AddXPTest();
+    }
+
+    public void ShowConfirmationDialog()
+    {
+        confirmationDialogText.text = "Are you sure you want to delete this item?";
+        confirmationDialogUI.SetActive(true);
+    }
+
+    private void OnConfirmDelete()
+    {
+        /*if (itemSlotToDelete != null && itemSlotToDelete.Item != null)
+        {
+            InventoryManager.Instance.RemoveItem(item);
+            itemSlotToDelete.Item = null;
+            confirmationDialogUI.SetActive(false);
+            itemSlotToDelete = null;
+            UpdateInventory();
+        }*/
+    }
+
+    private void OnCancelDelete()
+    {
+        /*if (itemSlotToDelete != null)
+        {
+            itemSlotToDelete.transform.position = itemSlotToDelete.originalPosition;
+            itemSlotToDelete = null;
+        }
+        confirmationDialogUI.SetActive(false);*/
     }
 
     public void UpdateInventory()
