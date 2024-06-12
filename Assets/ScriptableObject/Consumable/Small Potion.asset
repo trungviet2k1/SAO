@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ff466687c867048b4ad4774846f5af, type: 3}
+  m_Name: Small Potion
+  m_EditorClassIdentifier: 
+  prefabIcon: {fileID: 0}
+  itemName: "Thu\u1ED1c s\u01A1 c\u1EA5p"
+  description: "Ph\u1EE5c h\u1ED3i 20 m\xE1u"
+  weight: 0.2
+  healthRestored: 10
+  manaRestored: 0

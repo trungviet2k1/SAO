@@ -94,4 +94,15 @@ public class EquipmentSystem : MonoBehaviour
             currentWeaponInHand.GetComponentInChildren<DamageDealer>().EndDealDamage();
         }
     }
+
+    public bool IsWeaponEquipped()
+    {
+        return currentWeaponInSheath != null || currentWeaponInHand != null;
+    }
+
+    public bool CanAttack()
+    {
+        return currentWeaponInHand != null;
+    }
+
 }

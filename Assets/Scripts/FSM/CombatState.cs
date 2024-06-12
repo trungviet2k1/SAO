@@ -39,14 +39,20 @@ public class CombatState : State
     {
         base.HandleInput();
 
-        if (drawWeaponAction.triggered)
+        if (EquipmentSystem.Instance.IsWeaponEquipped())
         {
-            sheathWeapon = true;
+            if (drawWeaponAction.triggered)
+            {
+                sheathWeapon = true;
+            }
         }
 
-        if (attackAction.triggered)
+        if (EquipmentSystem.Instance.CanAttack())
         {
-            attack = true;
+            if (attackAction.triggered)
+            {
+                attack = true;
+            } 
         }
 
         if (rollAction.triggered && character.combatRolling.CanRoll())
@@ -67,13 +73,13 @@ public class CombatState : State
 
         character.animator.SetFloat("Speed", input.magnitude, character.speedDampTime, Time.deltaTime);
 
-        if (sheathWeapon)
+        if (sheathWeapon && EquipmentSystem.Instance.IsWeaponEquipped())
         {
             character.animator.SetTrigger("SheathWeapon");
             stateMachine.ChangeState(character.standing);
         }
 
-        if (attack)
+        if (attack && EquipmentSystem.Instance.CanAttack())
         {
             character.animator.SetTrigger("Attack1");
             stateMachine.ChangeState(character.attacking);

@@ -59,9 +59,12 @@ public class StandingState : State
         {
             roll = true;
         }
-        if (drawWeaponAction.triggered)
+        if (EquipmentSystem.Instance.IsWeaponEquipped())
         {
-            drawWeapon = true;
+            if (drawWeaponAction.triggered)
+            {
+                drawWeapon = true;
+            }
         }
 
         input = moveAction.ReadValue<Vector2>();

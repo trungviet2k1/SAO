@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class InventorySystem : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class InventorySystem : MonoBehaviour
 
     [Header("UI References")]
     public GameObject inventoryUI;
+    public TextMeshProUGUI levelValue;
+    public TextMeshProUGUI expValue;
+    public Slider expSlider;
     public TextMeshProUGUI healthValue;
     public TextMeshProUGUI manaValue;
     public TextMeshProUGUI armorValue;
@@ -18,6 +22,7 @@ public class InventorySystem : MonoBehaviour
     public List<EquipSlot> equipSlots;
 
     private InputAction inventoryAction;
+    private InputAction addXPAction;
 
     private readonly Dictionary<Item, int> itemPositions = new();
 
@@ -43,7 +48,15 @@ public class InventorySystem : MonoBehaviour
         inventoryAction = playerInput.actions["Inventory"];
         inventoryAction.performed += ToggleInventory;
 
+        addXPAction = playerInput.actions["AddXP"];
+        addXPAction.performed += AddXPTest;
+
+        CharacterLevelSystem.Instance.OnLevelUp += UpdateLevelValue;
+        CharacterLevelSystem.Instance.OnXPChanged += UpdateExpValue;
+
         UpdateHealthValue(HealthSystem.Instance.currentHealth);
+        UpdateLevelValue();
+        UpdateExpValue();
     }
 
     void OnDestroy()
@@ -52,12 +65,23 @@ public class InventorySystem : MonoBehaviour
         {
             inventoryAction.performed -= ToggleInventory;
         }
+
+        if (CharacterLevelSystem.Instance != null)
+        {
+            CharacterLevelSystem.Instance.OnLevelUp -= UpdateLevelValue;
+            CharacterLevelSystem.Instance.OnXPChanged -= UpdateExpValue;
+        }
     }
 
     private void ToggleInventory(InputAction.CallbackContext context)
     {
         IsInventoryOpen = !IsInventoryOpen;
         inventoryUI.SetActive(IsInventoryOpen);
+    }
+
+    private void AddXPTest(InputAction.CallbackContext context)
+    {
+        CharacterLevelSystem.Instance.AddXPTest();
     }
 
     public void UpdateInventory()
@@ -91,6 +115,19 @@ public class InventorySystem : MonoBehaviour
             itemObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             itemObject.AddComponent<ItemComponent>().item = item;
         }
+    }
+
+    public void UpdateLevelValue()
+    {
+        levelValue.text = $"{CharacterLevelSystem.Instance.Level}";
+    }
+
+    public void UpdateExpValue()
+    {
+        float expPercentage = CharacterLevelSystem.Instance.GetXPPercentage();
+        string expText = $"EXP: {expPercentage:F2}%";
+        expValue.text = expText;
+        expSlider.value = expPercentage / 100f;
     }
 
     public void UpdateHealthValue(float currentHealth)

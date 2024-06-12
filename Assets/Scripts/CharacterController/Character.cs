@@ -54,6 +54,8 @@ public class Character : MonoBehaviour
     [HideInInspector] public Animator animator;
     [HideInInspector] public Vector3 playerVelocity;
 
+    private CharacterLevelSystem levelSystem;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -61,6 +63,8 @@ public class Character : MonoBehaviour
         animator = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
         cameraTransform = Camera.main.transform;
+        levelSystem = CharacterLevelSystem.Instance;
+        levelSystem.OnLevelUp += OnLevelUp;
 
         movementSM = new StateMachine();
         standing = new StandingState(this, movementSM);
@@ -93,6 +97,24 @@ public class Character : MonoBehaviour
 
         movementSM.currentState.HandleInput();
         movementSM.currentState.LogicUpdate();
+    }
+
+    void OnDestroy()
+    {
+        if (levelSystem != null)
+        {
+            levelSystem.OnLevelUp -= OnLevelUp;
+        }
+    }
+
+    private void OnLevelUp()
+    {
+        Debug.Log("Level Up! Current Level: " + levelSystem.Level);
+    }
+
+    public void GainExperience(int amount)
+    {
+        levelSystem.AddXP(amount);
     }
 
     public bool IsAttackButtonPressed()
