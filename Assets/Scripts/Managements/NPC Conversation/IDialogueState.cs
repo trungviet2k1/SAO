@@ -1,6 +1,6 @@
 public interface IDialogueState
 {
-    void EnterState(DialogueSystem dialogueSystem);
+    void EnterState(NPCConversationSystem dialogueSystem);
     void UpdateState();
     void ExitState();
 }

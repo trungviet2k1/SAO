@@ -6,6 +6,7 @@ public class ThirdPersonCamera : MonoBehaviour
     public float distance = 5.0f;
     public float smoothTime = 0.2f;
     public float mouseSensitivity = 2.0f;
+    public float collisionBuffer = 0.2f;
     public LayerMask collisionMask;
 
     private Vector3 velocity = Vector3.zero;
@@ -42,7 +43,7 @@ public class ThirdPersonCamera : MonoBehaviour
             Cursor.visible = false;
         }
 
-        if (DialogueSystem.Instance.IsInDialogue || InventorySystem.Instance.IsInventoryOpen)
+        if (NPCConversationSystem.Instance.IsInDialogue || InventorySystem.Instance.IsInventoryOpen)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -78,16 +79,16 @@ public class ThirdPersonCamera : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
         Vector3 desiredPosition = target.position - (rotation * Vector3.forward * defaultDistance);
 
-        if (Physics.Linecast(target.position, desiredPosition, out RaycastHit hit, collisionMask))
+        if (Physics.SphereCast(target.position, collisionBuffer, (desiredPosition - target.position).normalized, out RaycastHit hit, defaultDistance, collisionMask))
         {
-            distance = Mathf.Clamp(hit.distance, 0.5f, defaultDistance);
+            distance = Mathf.Clamp(hit.distance - collisionBuffer, 0.5f, defaultDistance);
         }
         else
         {
             distance = defaultDistance;
         }
 
-        Vector3 offset = new(0, 0, -distance);
+        Vector3 offset = new Vector3(0, 0, -distance);
         Vector3 rotatedOffset = rotation * offset;
         Vector3 finalPosition = target.position + rotatedOffset;
 

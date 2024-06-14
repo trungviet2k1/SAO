@@ -15,32 +15,31 @@ public class InteractableNameText : MonoBehaviour
 
     public void ShowText(Interactable interactable)
     {
+        text.text = GetInteractableName(interactable);
+    }
+
+    private string GetInteractableName(Interactable interactable)
+    {
         if (interactable is PickUpItem)
         {
-            text.text = interactable.interactableName + "\n [E] Nhặt";
+            return interactable.interactableName + "\n [E] Nhặt";
         }
         else if (interactable is InteractableChest)
         {
-            if (((InteractableChest)interactable).isOpen)
-            {
-                text.text = interactable.interactableName + "\n [E] Đóng";
-            }
-            else
-            {
-                text.text = interactable.interactableName + "\n [E] Mở";
-            }
+            InteractableChest chest = interactable as InteractableChest;
+            return chest.isOpen ? interactable.interactableName + "\n [E] Đóng" : interactable.interactableName + "\n [E] Mở";
         }
         else if (interactable is InteractableLoot)
         {
-            text.text = interactable.interactableName + "\n [E] Loot";
+            return interactable.interactableName + "\n [E] Loot";
         }
         else if (interactable is InteractableNPC)
         {
-            text.text = interactable.interactableName + "\n [E] Nói chuyện";
+            return interactable.interactableName + "\n [E] Nói chuyện";
         }
         else
         {
-            text.text = interactable.interactableName;
+            return interactable.interactableName;
         }
     }
 
@@ -51,19 +50,14 @@ public class InteractableNameText : MonoBehaviour
 
     public void SetInteractableNamePosition(Interactable interactable)
     {
-        if (interactable.TryGetComponent(out BoxCollider boxCollider))
+        if (interactable.TryGetComponent(out Collider collider))
         {
-            transform.position = interactable.transform.position + Vector3.up * boxCollider.bounds.size.y;
-            transform.LookAt(2 * transform.position - cameraTransform.position);
-        }
-        else if (interactable.TryGetComponent(out CapsuleCollider capsCollider))
-        {
-            transform.position = interactable.transform.position + Vector3.up * capsCollider.height;
+            transform.position = interactable.transform.position + Vector3.up * collider.bounds.size.y;
             transform.LookAt(2 * transform.position - cameraTransform.position);
         }
         else
         {
-            print("Error, no collider found!");
+            Debug.LogError("Error: No collider found on interactable object.");
         }
     }
 }

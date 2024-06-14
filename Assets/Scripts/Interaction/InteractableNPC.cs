@@ -1,9 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class InteractableNPC : Interactable
+public abstract class InteractableNPC : Interactable
 {
-    private Animator animator;
-    public string[] dialogueLines;
+    protected Animator animator;
+    public string npcName;
+    public Sprite npcAvatar;
 
     public override void Start()
     {
@@ -11,10 +12,18 @@ public class InteractableNPC : Interactable
         animator = GetComponent<Animator>();
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Interaction();
+        }
+    }
+
     protected override void Interaction()
     {
         base.Interaction();
+        if (NPCConversationSystem.Instance.IsInDialogue) return;
         animator.SetTrigger("Wave");
-        DialogueSystem.Instance.StartDialogue(interactableName, dialogueLines);
     }
 }

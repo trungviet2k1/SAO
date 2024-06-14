@@ -1,8 +1,8 @@
 public class DialogueEndState : IDialogueState
 {
-    public void EnterState(DialogueSystem dialogueSystem)
+    public void EnterState(NPCConversationSystem dialogueSystem)
     {
-        dialogueSystem.dialogueUI.SetActive(false);
+        dialogueSystem.conversationUI.SetActive(false);
     }
 
     public void UpdateState() { }

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class DialogueInProgressState : IDialogueState
 {
-    private DialogueSystem dialogueSystem;
+    private NPCConversationSystem dialogueSystem;
 
-    public void EnterState(DialogueSystem dialogueSystem)
+    public void EnterState(NPCConversationSystem dialogueSystem)
     {
         this.dialogueSystem = dialogueSystem;
     }
