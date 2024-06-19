@@ -33,22 +33,19 @@ public class ThirdPersonCamera : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            PauseMenu.Instance.SetCursorState(true);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !PauseMenu.Instance.gameIsPaused)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            PauseMenu.Instance.SetCursorState(false);
         }
 
         if (NPCConversationSystem.Instance.IsInDialogue || InventorySystem.Instance.IsInventoryOpen)
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            PauseMenu.Instance.SetCursorState(true);
         }
-        else if (Cursor.lockState == CursorLockMode.Locked)
+        else if (!PauseMenu.Instance.gameIsPaused && Cursor.lockState == CursorLockMode.Locked)
         {
             float rotateX = Input.GetAxis("Mouse X") * mouseSensitivity;
             float rotateY = Input.GetAxis("Mouse Y") * mouseSensitivity;
