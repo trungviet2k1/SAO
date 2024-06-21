@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DialogueEditor;
+using UnityEngine;
 
 public abstract class InteractableNPC : Interactable
 {
@@ -23,7 +24,24 @@ public abstract class InteractableNPC : Interactable
     protected override void Interaction()
     {
         base.Interaction();
-        if (NPCConversationSystem.Instance.IsInDialogue) return;
+        if (ConversationManager.Instance.IsInDialogue) return;
         animator.SetTrigger("Wave");
+    }
+
+    public void TriggerWave()
+    {
+        if (animator != null)
+        {
+            animator.SetTrigger("Wave");
+        }
+    }
+
+    public void TriggerIdle()
+    {
+        if (animator != null)
+        {
+            animator.ResetTrigger("Wave");
+            animator.SetTrigger("Idle");
+        }
     }
 }

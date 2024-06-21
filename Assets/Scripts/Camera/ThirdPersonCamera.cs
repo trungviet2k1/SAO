@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DialogueEditor;
+using UnityEngine;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
@@ -41,11 +42,12 @@ public class ThirdPersonCamera : MonoBehaviour
             PauseMenu.Instance.SetCursorState(false);
         }
 
-        if (NPCConversationSystem.Instance.IsInDialogue || InventorySystem.Instance.IsInventoryOpen)
+        if (ConversationManager.Instance.IsInDialogue || InventorySystem.Instance.IsInventoryOpen)
         {
             PauseMenu.Instance.SetCursorState(true);
         }
-        else if (!PauseMenu.Instance.gameIsPaused && Cursor.lockState == CursorLockMode.Locked)
+        
+        if (Cursor.lockState == CursorLockMode.Locked)
         {
             float rotateX = Input.GetAxis("Mouse X") * mouseSensitivity;
             float rotateY = Input.GetAxis("Mouse Y") * mouseSensitivity;
@@ -85,7 +87,7 @@ public class ThirdPersonCamera : MonoBehaviour
             distance = defaultDistance;
         }
 
-        Vector3 offset = new Vector3(0, 0, -distance);
+        Vector3 offset = new(0, 0, -distance);
         Vector3 rotatedOffset = rotation * offset;
         Vector3 finalPosition = target.position + rotatedOffset;
 
