@@ -7,7 +7,7 @@ public class HealthSystem : MonoBehaviour
     public static HealthSystem Instance;
 
     [Header ("Player Health Setting")]
-    [SerializeField] public float maxHealth;
+    [SerializeField] float maxHealth;
     [HideInInspector] public float currentHealth;
 
     [Header ("UI")]
@@ -83,7 +83,7 @@ public class HealthSystem : MonoBehaviour
 
     void UpdateHealthValue()
     {
-        healthValue.text = $"{currentHealth} / {maxHealth}";
+        healthValue.text = $"HP: {currentHealth}";
         healthSlider.value = currentHealth;
 
         OnHealthChanged?.Invoke(currentHealth);

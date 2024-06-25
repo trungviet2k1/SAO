@@ -22,6 +22,7 @@ public class ArmorShopNPC : InteractableNPC
     public void OpenShop()
     {
         Debug.Log("Mở cửa hàng!");
+        ShopManager.Instance.OpenShop();
         TriggerIdle();
     }
 }

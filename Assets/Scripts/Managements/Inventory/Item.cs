@@ -18,6 +18,7 @@ public class Item : ScriptableObject
 {
     public GameObject prefab;
     public string itemName;
+    public int itemPrice;
     public float weight;
     public ItemType itemType;
     public string prefab3DName;

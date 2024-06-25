@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 2525260479370453852, guid: a7c16f3a25249ce46865d21c95d216b8, type: 3}
   itemName: Sword
+  itemPrice: 20
   weight: 1.7
   itemType: 6
   prefab3DName: Sword

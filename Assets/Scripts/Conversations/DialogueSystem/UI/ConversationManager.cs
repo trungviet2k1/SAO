@@ -57,7 +57,7 @@ namespace DialogueEditor
         public Sprite BlankSprite;
 
         [HideInInspector] public bool IsInDialogue { get; private set; } = false;
-        private InteractableNPC currentNPC;
+        //private InteractableNPC currentNPC;
 
         // Getter properties
         public bool IsConversationActive

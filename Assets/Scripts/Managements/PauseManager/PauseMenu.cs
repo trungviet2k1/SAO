@@ -85,6 +85,8 @@ public class PauseMenu : MonoBehaviour
             if (!gameIsPaused)
             {
                 Pause();
+                InventorySystem.Instance.CloseInventory();
+                ShopManager.Instance.CloseShop();
             }
         }
     }

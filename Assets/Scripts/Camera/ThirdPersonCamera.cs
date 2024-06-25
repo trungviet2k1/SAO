@@ -32,21 +32,19 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (PauseMenu.Instance.gameIsPaused || InventorySystem.Instance.IsInventoryOpen || 
+            ConversationManager.Instance.IsInDialogue || ShopManager.Instance.isOpenShop)
         {
-            PauseMenu.Instance.SetCursorState(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            return;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
-        if (Input.GetMouseButtonDown(0) && !PauseMenu.Instance.gameIsPaused)
-        {
-            PauseMenu.Instance.SetCursorState(false);
-        }
-
-        if (ConversationManager.Instance.IsInDialogue || InventorySystem.Instance.IsInventoryOpen)
-        {
-            PauseMenu.Instance.SetCursorState(true);
-        }
-        
         if (Cursor.lockState == CursorLockMode.Locked)
         {
             float rotateX = Input.GetAxis("Mouse X") * mouseSensitivity;
