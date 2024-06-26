@@ -124,4 +124,4 @@ MonoBehaviour:
   interactableName: Lambent Light
   interactionDistance: 2
   isInteractable: 1
-  item: {fileID: 11400000, guid: e79e6879c1e5ead418255c82d3938db4, type: 2}
+  item: {fileID: 11400000, guid: 2271b8ea25f155e45923bf342d633d60, type: 2}

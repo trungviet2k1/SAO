@@ -121,4 +121,4 @@ MonoBehaviour:
   interactableName: Sword
   interactionDistance: 2
   isInteractable: 1
-  item: {fileID: 11400000, guid: f09d40c9e0a9b6144a06587b70f02181, type: 2}
+  item: {fileID: 11400000, guid: 4862b01e2128e5c46b68f0f7b9dd4590, type: 2}

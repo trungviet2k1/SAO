@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponLength: 1
+  weaponAttackPower: {fileID: 11400000, guid: 18141c39060041341a8985324f42e9f2, type: 2}
   weaponDamage: 3
 --- !u!1 &5553213416949783405
 GameObject:

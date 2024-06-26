@@ -72,7 +72,7 @@ MonoBehaviour:
   interactableName: Dark Repulser
   interactionDistance: 2
   isInteractable: 1
-  item: {fileID: 11400000, guid: 67b3c1f7250c4c947ae2b3c8904579c1, type: 2}
+  item: {fileID: 11400000, guid: d8cac46c4643d1d4380ea5d40d1451fe, type: 2}
 --- !u!1 &1486436935175878872
 GameObject:
   m_ObjectHideFlags: 0

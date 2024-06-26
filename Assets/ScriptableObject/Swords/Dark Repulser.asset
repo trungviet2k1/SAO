@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab11c7e593656254aae695b0e24a9978, type: 3}
-  m_Name: Sword
+  m_Script: {fileID: 11500000, guid: 7f4c0360b525e314394744e51a8ee0f4, type: 3}
+  m_Name: Dark Repulser
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2525260479370453852, guid: a7c16f3a25249ce46865d21c95d216b8, type: 3}
-  itemName: Sword
-  itemPrice: 20
-  weight: 1.7
+  prefab: {fileID: 2525260479370453852, guid: 05602604484bf4742b93d7e695253b77, type: 3}
+  itemName: Dark Repulser
+  itemPrice: 600
+  weight: 1.75
   itemType: 6
-  prefab3DName: Sword
+  prefab3DName: Dark Repulser
+  attackPower: 13

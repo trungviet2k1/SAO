@@ -70,7 +70,7 @@ MonoBehaviour:
   interactableName: Elucidator
   interactionDistance: 2
   isInteractable: 1
-  item: {fileID: 11400000, guid: 74a298576ad70a446b00de0dda0ca51c, type: 2}
+  item: {fileID: 11400000, guid: a331b86c3caf89a489b34ace19953e8a, type: 2}
 --- !u!1 &7233251558283022112
 GameObject:
   m_ObjectHideFlags: 0

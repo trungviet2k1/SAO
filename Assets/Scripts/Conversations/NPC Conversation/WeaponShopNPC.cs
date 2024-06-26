@@ -21,7 +21,8 @@ public class WeaponShopNPC : InteractableNPC
 
     public void OpenShop()
     {
-        Debug.Log("Mở cửa hàng!");
+        string shopName = $"{npcName}'s Shop";
+        ShopManager.Instance.OpenShop(ShopType.WeaponShop, shopName);
         TriggerIdle();
     }
 }

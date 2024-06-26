@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageDealer : MonoBehaviour
@@ -7,19 +7,25 @@ public class DamageDealer : MonoBehaviour
     List<GameObject> hasDealDamage;
 
     [SerializeField] float weaponLength;
-    [SerializeField] float weaponDamage;
+    [SerializeField] WeaponItem weaponAttackPower;
+    public float weaponDamage = 0;
 
     void Start()
     {
         canDealDamage = false;
         hasDealDamage = new List<GameObject>();
+
+        if (weaponAttackPower != null)
+        {
+            weaponDamage = weaponAttackPower.attackPower;
+        }
     }
 
     void Update()
     {
         if (canDealDamage)
         {
-            int layerMask = 1 << 9; // Assumes enemies are on layer 9
+            int layerMask = 1 << 9;
             if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, weaponLength, layerMask))
             {
                 if (hit.transform.TryGetComponent(out Enemy enemy) && !hasDealDamage.Contains(hit.transform.gameObject))
