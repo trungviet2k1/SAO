@@ -7,12 +7,10 @@ public class ConsumableItem : ScriptableObject
     public string itemName;
     public string description;
     public float weight;
-    public int healthRestored;
-    public int manaRestored;
+    public int itemPrice;
 
-    public void Use()
+    public virtual void Use()
     {
-        // Implement the logic for using the consumable item
-        Debug.Log($"Using {itemName}. Restored {healthRestored} health and {manaRestored} mana.");
+        Debug.Log($"Using {itemName}");
     }
 }

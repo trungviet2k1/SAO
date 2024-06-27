@@ -21,7 +21,8 @@ public class ConsumableItemShopNPC : InteractableNPC
 
     public void OpenShop()
     {
-        Debug.Log("Mở cửa hàng!");
+        string shopName = $"{npcName}'s Shop";
+        ShopManager.Instance.OpenShop(ShopType.ConsumableShop, shopName);
         TriggerIdle();
     }
 }

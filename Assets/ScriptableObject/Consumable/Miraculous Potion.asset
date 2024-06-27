@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fe5a0987507e934da81b50884a1d19d, type: 3}
-  m_Name: Small Potion
+  m_Name: Miraculous Potion
   m_EditorClassIdentifier: 
-  prefabIcon: {fileID: 2525260479370453852, guid: 6f241f33b8b44e543a896003a8d56286,
+  prefabIcon: {fileID: 2525260479370453852, guid: 0e003de9b70989d4ea888840ed5fa1dd,
     type: 3}
-  itemName: "Thu\u1ED1c h\u1ED3i m\xE1u nh\u1ECF"
-  description: "Gi\xFAp b\u1EA1n h\u1ED3i l\u1EA1i 25 m\xE1u trong 10s"
-  weight: 0.2
-  itemPrice: 20
-  potionType: 0
-  healthRestoreAmount: 25
+  itemName: "Thu\u1ED1c h\u1ED3i m\xE1u th\u1EA7n k\u1EF3"
+  description: "H\u1ED3i l\u1EA1i cho b\u1EA1n to\xE0n b\u1ED9 HP ngay l\u1EADp t\u1EE9c"
+  weight: 1.2
+  itemPrice: 500
+  potionType: 4
+  healthRestoreAmount: 0

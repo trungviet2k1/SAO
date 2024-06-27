@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fe5a0987507e934da81b50884a1d19d, type: 3}
-  m_Name: Small Potion
+  m_Name: Medium Potion
   m_EditorClassIdentifier: 
-  prefabIcon: {fileID: 2525260479370453852, guid: 6f241f33b8b44e543a896003a8d56286,
+  prefabIcon: {fileID: 2525260479370453852, guid: e8bb58d6496d71748842867ab2b2a1bd,
     type: 3}
-  itemName: "Thu\u1ED1c h\u1ED3i m\xE1u nh\u1ECF"
-  description: "Gi\xFAp b\u1EA1n h\u1ED3i l\u1EA1i 25 m\xE1u trong 10s"
-  weight: 0.2
-  itemPrice: 20
-  potionType: 0
-  healthRestoreAmount: 25
+  itemName: "Thu\u1ED1c h\u1ED3i m\xE1u v\u1EEBa"
+  description: "Gi\xFAp b\u1EA1n h\u1ED3i l\u1EA1i 45 m\xE1u trong 10s"
+  weight: 0.4
+  itemPrice: 35
+  potionType: 1
+  healthRestoreAmount: 45

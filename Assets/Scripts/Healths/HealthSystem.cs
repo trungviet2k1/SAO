@@ -6,15 +6,15 @@ public class HealthSystem : MonoBehaviour
 {
     public static HealthSystem Instance;
 
-    [Header ("Player Health Setting")]
-    [SerializeField] float maxHealth;
+    [Header("Player Health Setting")]
+    [SerializeField] public float maxHealth;
     [HideInInspector] public float currentHealth;
 
-    [Header ("UI")]
+    [Header("UI")]
     [SerializeField] Slider healthSlider;
     [SerializeField] TextMeshProUGUI healthValue;
 
-    [Header ("Effect and Ragdoll")]
+    [Header("Effect and Ragdoll")]
     [SerializeField] GameObject hitVFX;
     [SerializeField] GameObject ragdoll;
 
@@ -67,6 +67,16 @@ public class HealthSystem : MonoBehaviour
         {
             UpdateHealthValue();
         }
+    }
+
+    public void RestoreHealth(float healthAmount)
+    {
+        currentHealth += healthAmount;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        UpdateHealthValue();
     }
 
     void Die()

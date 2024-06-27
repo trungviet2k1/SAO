@@ -1,5 +1,6 @@
 public enum ShopType
 {
     WeaponShop,
-    EquipmentShop
+    EquipmentShop,
+    ConsumableShop
 }

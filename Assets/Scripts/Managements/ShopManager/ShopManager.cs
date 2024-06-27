@@ -16,6 +16,7 @@ public class ShopManager : MonoBehaviour
     public GameObject itemPrefab;
     public List<Item> weaponItemsForSale;
     public List<Item> equipmentItemsForSale;
+    public List<ConsumableItem> consumableItemsForSale;
 
     [Header("Item Information")]
     public GameObject itemInformationPanel;
@@ -23,6 +24,12 @@ public class ShopManager : MonoBehaviour
     public TextMeshProUGUI itemHPBonusText;
     public TextMeshProUGUI itemAttackPowerText;
     public TextMeshProUGUI itemDefensePowerText;
+
+    [Header("Consumable Information")]
+    public GameObject consumableInformationPanel;
+    public TextMeshProUGUI consumableDescription;
+    public TextMeshProUGUI consumableNameText;
+    public TextMeshProUGUI consumableHPRecoversText;
 
     [Header("Button Controls")]
     public Button closeButton;
@@ -44,6 +51,7 @@ public class ShopManager : MonoBehaviour
 
         shopPanel.SetActive(false);
         itemInformationPanel.SetActive(false);
+        consumableInformationPanel.SetActive(false);
     }
 
     void Start()
@@ -51,7 +59,7 @@ public class ShopManager : MonoBehaviour
         closeButton.onClick.AddListener(CloseShop);
     }
 
-    void PopulateShop(List<Item> itemsForSale)
+    void PopulateItemShop(List<Item> itemsForSale)
     {
         foreach (Transform child in itemsParent)
         {
@@ -61,7 +69,21 @@ public class ShopManager : MonoBehaviour
         foreach (Item item in itemsForSale)
         {
             GameObject itemGO = Instantiate(itemPrefab, itemsParent);
-            itemGO.GetComponent<ItemUI>().Setup(item, this);
+            itemGO.GetComponent<ItemUI>().SetupItemForSale(item, this);
+        }
+    }
+
+    void PopulateConsumableShop(List<ConsumableItem> itemsForSale)
+    {
+        foreach (Transform child in itemsParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (ConsumableItem consumableItem in itemsForSale)
+        {
+            GameObject itemGO = Instantiate(itemPrefab, itemsParent);
+            itemGO.GetComponent<ItemUI>().SetupConsumableItemForSale(consumableItem, this);
         }
     }
 
@@ -73,11 +95,20 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    public void BuyConsumableItem(ConsumableItem consumableItem)
+    {
+        if (consumableItem != null)
+        {
+            Debug.Log("Bought " + consumableItem.itemName);
+        }
+    }
+
     public void CloseShop()
     {
         isOpenShop = false;
         shopPanel.SetActive(false);
         itemInformationPanel.SetActive(false);
+        consumableInformationPanel.SetActive(false);
     }
 
     public void OpenShop(ShopType shopType, string shopName)
@@ -90,10 +121,13 @@ public class ShopManager : MonoBehaviour
         switch (shopType)
         {
             case ShopType.WeaponShop:
-                PopulateShop(weaponItemsForSale);
+                PopulateItemShop(weaponItemsForSale);
                 break;
             case ShopType.EquipmentShop:
-                PopulateShop(equipmentItemsForSale);
+                PopulateItemShop(equipmentItemsForSale);
+                break;
+            case ShopType.ConsumableShop:
+                PopulateConsumableShop(consumableItemsForSale);
                 break;
         }
     }
@@ -105,15 +139,35 @@ public class ShopManager : MonoBehaviour
 
         if (item is ArmorItem armorItem)
         {
-            itemHPBonusText.text = armorItem.hpBonus.ToString();
-            itemDefensePowerText.text = armorItem.defensePower.ToString();
+            itemHPBonusText.text = "+" + armorItem.hpBonus.ToString();
+            itemDefensePowerText.text = "+" + armorItem.defensePower.ToString();
             itemAttackPowerText.text = "-";
         }
         else if (item is WeaponItem weaponItem)
         {
             itemHPBonusText.text = "-";
             itemDefensePowerText.text = "-";
-            itemAttackPowerText.text = weaponItem.attackPower.ToString();
+            itemAttackPowerText.text = "+" + weaponItem.attackPower.ToString();
+        }
+    }
+
+    public void DisplayConsumableInformation(ConsumableItem consumableItem)
+    {
+        consumableInformationPanel.SetActive(true);
+        consumableNameText.text = consumableItem.itemName;
+
+        if (consumableItem is HealthPotion healthPotion)
+        {
+            if (healthPotion.potionType == HealthPotionType.Miraculous)
+            {
+                consumableHPRecoversText.text = "Full HP";
+            }
+            else
+            {
+                consumableHPRecoversText.text = "+" + healthPotion.healthRestoreAmount.ToString();
+            }
+
+            consumableDescription.text = healthPotion.description;
         }
     }
 }
