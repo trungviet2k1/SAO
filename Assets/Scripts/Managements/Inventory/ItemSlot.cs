@@ -33,8 +33,23 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         }
         else
         {
-            droppedItem.transform.SetParent(transform, true);
-            droppedItem.transform.position = Vector2.zero;
+            GameObject targetItem = Item;
+            SwapItems(droppedItem, targetItem);
         }
+    }
+
+    private void SwapItems(GameObject item1, GameObject item2)
+    {
+        Transform item1Parent = item1.transform.parent;
+        Transform item2Parent = item2.transform.parent;
+
+        Vector2 item1Position = item1.transform.localPosition;
+        Vector2 item2Position = item2.transform.localPosition;
+
+        item1.transform.SetParent(item2Parent);
+        item1.transform.localPosition = item2Position;
+
+        item2.transform.SetParent(item1Parent);
+        item2.transform.localPosition = item1Position;
     }
 }

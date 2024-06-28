@@ -16,6 +16,7 @@ public enum ItemType
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
 {
+    public int itemID;
     public GameObject prefab;
     public string itemName;
     public int itemPrice;

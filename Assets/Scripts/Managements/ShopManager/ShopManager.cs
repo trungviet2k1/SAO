@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
@@ -19,17 +19,8 @@ public class ShopManager : MonoBehaviour
     public List<ConsumableItem> consumableItemsForSale;
 
     [Header("Item Information")]
-    public GameObject itemInformationPanel;
-    public TextMeshProUGUI itemNameText;
-    public TextMeshProUGUI itemHPBonusText;
-    public TextMeshProUGUI itemAttackPowerText;
-    public TextMeshProUGUI itemDefensePowerText;
-
-    [Header("Consumable Information")]
-    public GameObject consumableInformationPanel;
-    public TextMeshProUGUI consumableDescription;
-    public TextMeshProUGUI consumableNameText;
-    public TextMeshProUGUI consumableHPRecoversText;
+    public ItemInfoPanel itemInfoPanel;
+    public ConsumableInfoPanel consumableInfoPanel;
 
     [Header("Button Controls")]
     public Button closeButton;
@@ -50,8 +41,8 @@ public class ShopManager : MonoBehaviour
         }
 
         shopPanel.SetActive(false);
-        itemInformationPanel.SetActive(false);
-        consumableInformationPanel.SetActive(false);
+        itemInfoPanel.gameObject.SetActive(false);
+        consumableInfoPanel.gameObject.SetActive(false);
     }
 
     void Start()
@@ -59,47 +50,43 @@ public class ShopManager : MonoBehaviour
         closeButton.onClick.AddListener(CloseShop);
     }
 
-    void PopulateItemShop(List<Item> itemsForSale)
+    void PopulateShop<T>(List<T> itemsForSale) where T : ScriptableObject
     {
         foreach (Transform child in itemsParent)
         {
             Destroy(child.gameObject);
         }
 
-        foreach (Item item in itemsForSale)
+        foreach (T item in itemsForSale)
         {
             GameObject itemGO = Instantiate(itemPrefab, itemsParent);
-            itemGO.GetComponent<ItemUI>().SetupItemForSale(item, this);
-        }
-    }
-
-    void PopulateConsumableShop(List<ConsumableItem> itemsForSale)
-    {
-        foreach (Transform child in itemsParent)
-        {
-            Destroy(child.gameObject);
-        }
-
-        foreach (ConsumableItem consumableItem in itemsForSale)
-        {
-            GameObject itemGO = Instantiate(itemPrefab, itemsParent);
-            itemGO.GetComponent<ItemUI>().SetupConsumableItemForSale(consumableItem, this);
+            ItemUI itemUI = itemGO.GetComponent<ItemUI>();
+            if (item is Item itemObj)
+            {
+                itemUI.SetupItemForSale(itemObj, this);
+            }
+            else if (item is ConsumableItem consumableItemObj)
+            {
+                itemUI.SetupConsumableItemForSale(consumableItemObj, this);
+            }
         }
     }
 
     public void BuyItem(Item item)
     {
-        if (item != null)
+        if (item != null && CurrencyManager.Instance.CanAfford(item.itemPrice))
         {
-            Debug.Log("Bought " + item.itemName);
+            CurrencyManager.Instance.SubtractMoney(item.itemPrice);
+            InventoryManager.Instance.AddItem(item);
         }
     }
 
     public void BuyConsumableItem(ConsumableItem consumableItem)
     {
-        if (consumableItem != null)
+        if (consumableItem != null && CurrencyManager.Instance.CanAfford(consumableItem.itemPrice))
         {
-            Debug.Log("Bought " + consumableItem.itemName);
+            CurrencyManager.Instance.SubtractMoney(consumableItem.itemPrice);
+            InventoryManager.Instance.AddConsumableItem(consumableItem);
         }
     }
 
@@ -107,8 +94,8 @@ public class ShopManager : MonoBehaviour
     {
         isOpenShop = false;
         shopPanel.SetActive(false);
-        itemInformationPanel.SetActive(false);
-        consumableInformationPanel.SetActive(false);
+        itemInfoPanel.gameObject.SetActive(false);
+        consumableInfoPanel.gameObject.SetActive(false);
     }
 
     public void OpenShop(ShopType shopType, string shopName)
@@ -121,53 +108,24 @@ public class ShopManager : MonoBehaviour
         switch (shopType)
         {
             case ShopType.WeaponShop:
-                PopulateItemShop(weaponItemsForSale);
+                PopulateShop(weaponItemsForSale);
                 break;
             case ShopType.EquipmentShop:
-                PopulateItemShop(equipmentItemsForSale);
+                PopulateShop(equipmentItemsForSale);
                 break;
             case ShopType.ConsumableShop:
-                PopulateConsumableShop(consumableItemsForSale);
+                PopulateShop(consumableItemsForSale);
                 break;
         }
     }
 
     public void DisplayItemInformation(Item item)
     {
-        itemInformationPanel.SetActive(true);
-        itemNameText.text = item.itemName;
-
-        if (item is ArmorItem armorItem)
-        {
-            itemHPBonusText.text = "+" + armorItem.hpBonus.ToString();
-            itemDefensePowerText.text = "+" + armorItem.defensePower.ToString();
-            itemAttackPowerText.text = "-";
-        }
-        else if (item is WeaponItem weaponItem)
-        {
-            itemHPBonusText.text = "-";
-            itemDefensePowerText.text = "-";
-            itemAttackPowerText.text = "+" + weaponItem.attackPower.ToString();
-        }
+        itemInfoPanel.Display(item);
     }
 
     public void DisplayConsumableInformation(ConsumableItem consumableItem)
     {
-        consumableInformationPanel.SetActive(true);
-        consumableNameText.text = consumableItem.itemName;
-
-        if (consumableItem is HealthPotion healthPotion)
-        {
-            if (healthPotion.potionType == HealthPotionType.Miraculous)
-            {
-                consumableHPRecoversText.text = "Full HP";
-            }
-            else
-            {
-                consumableHPRecoversText.text = "+" + healthPotion.healthRestoreAmount.ToString();
-            }
-
-            consumableDescription.text = healthPotion.description;
-        }
+        consumableInfoPanel.Display(consumableItem);
     }
 }

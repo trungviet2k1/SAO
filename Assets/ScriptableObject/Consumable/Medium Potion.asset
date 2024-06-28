@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fe5a0987507e934da81b50884a1d19d, type: 3}
   m_Name: Medium Potion
   m_EditorClassIdentifier: 
+  itemID: 2
   prefabIcon: {fileID: 2525260479370453852, guid: e8bb58d6496d71748842867ab2b2a1bd,
     type: 3}
   itemName: "Thu\u1ED1c h\u1ED3i m\xE1u v\u1EEBa"
   description: "Gi\xFAp b\u1EA1n h\u1ED3i l\u1EA1i 45 m\xE1u trong 10s"
   weight: 0.4
   itemPrice: 35
+  stackable: 1
+  maxStackCount: 100
+  stackCount: 0
   potionType: 1
   healthRestoreAmount: 45

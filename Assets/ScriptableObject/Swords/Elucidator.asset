@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4c0360b525e314394744e51a8ee0f4, type: 3}
   m_Name: Elucidator
   m_EditorClassIdentifier: 
+  itemID: 4
   prefab: {fileID: 2525260479370453852, guid: 5c537ecdb7197944e906bc51cc8e69da, type: 3}
   itemName: Elucidator
   itemPrice: 550

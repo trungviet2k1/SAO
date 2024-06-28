@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -6,8 +7,16 @@ public class InventoryManager : MonoBehaviour
     public static InventoryManager Instance { get; set; }
 
     public List<Item> inventoryItems = new();
-    [SerializeField] private float maxBagWeight = 300f;
+    public List<ConsumableItem> inventoryConsumableItems = new();
+
+    [Header("Bag information")]
+    public float currentBagWeight;
+    public float maxBagWeight;
+
+    private InventorySettings inventorySettings;
     private BagWeightManager bagWeightManager;
+
+    public event Action<float> OnBagWeightChanged;
 
     void Awake()
     {
@@ -20,16 +29,80 @@ public class InventoryManager : MonoBehaviour
             Instance = this;
         }
 
-        bagWeightManager = new BagWeightManager(maxBagWeight);
+        inventorySettings = Resources.Load<InventorySettings>("InventorySettings");
+        bagWeightManager = new BagWeightManager(inventorySettings.maxBagWeight);
+        bagWeightManager.OnWeightChanged += HandleWeightChanged;
     }
 
-    public void AddItem(Item item)
+    void Start()
     {
-        if (bagWeightManager.CanAddItem(item.weight))
+        currentBagWeight = GetCurrentBagWeight();
+        maxBagWeight = GetMaxBagWeight();
+    }
+
+    void HandleWeightChanged(float newWeight)
+    {
+        currentBagWeight = newWeight;
+        OnBagWeightChanged?.Invoke(newWeight);
+    }
+
+    public bool CanAddItem(Item item)
+    {
+        return inventoryItems.Count < inventorySettings.maxSlots || bagWeightManager.CanAddItem(item.weight);
+    }
+
+    public bool CanAddItem(ConsumableItem item)
+    {
+        return inventoryConsumableItems.Count < inventorySettings.maxSlots || bagWeightManager.CanAddItem(item.weight);
+    }
+
+    public bool AddItem(Item item)
+    {
+        if (CanAddItem(item))
         {
-            inventoryItems.Add(item);
+            Item newItem = Instantiate(item);
+            inventoryItems.Add(newItem);
             bagWeightManager.AddItemWeight(item.weight);
             InventorySystem.Instance.UpdateInventory();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool AddConsumableItem(ConsumableItem item)
+    {
+        if (CanAddItem(item))
+        {
+            if (item.stackable)
+            {
+                ConsumableItem existingItem = inventoryConsumableItems.Find(i => i.itemID == item.itemID && i.stackCount < i.maxStackCount);
+
+                if (existingItem != null && existingItem.stackCount < existingItem.maxStackCount)
+                {
+                    existingItem.stackCount++;
+                }
+                else
+                {
+                    ConsumableItem newStack = Instantiate(item);
+                    newStack.stackCount = 1;
+                    inventoryConsumableItems.Add(newStack);
+                }
+            }
+            else
+            {
+                inventoryConsumableItems.Add(item);
+            }
+
+            bagWeightManager.AddItemWeight(item.weight);
+            InventorySystem.Instance.UpdateInventory();
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -43,6 +116,16 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void RemoveItem(ConsumableItem item)
+    {
+        if (inventoryConsumableItems.Contains(item))
+        {
+            inventoryConsumableItems.Remove(item);
+            bagWeightManager.RemoveItemWeight(item.weight);
+            InventorySystem.Instance.UpdateInventory();
+        }
+    }
+
     public float GetCurrentBagWeight()
     {
         return bagWeightManager.CurrentBagWeight;
@@ -50,6 +133,6 @@ public class InventoryManager : MonoBehaviour
 
     public float GetMaxBagWeight()
     {
-        return bagWeightManager.MaxBagWeight;
+        return inventorySettings.maxBagWeight;
     }
 }

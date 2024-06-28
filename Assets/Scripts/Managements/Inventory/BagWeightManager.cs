@@ -1,9 +1,11 @@
-using UnityEngine;
+using System;
 
 public class BagWeightManager
 {
     public float CurrentBagWeight { get; private set; }
     public float MaxBagWeight { get; private set; }
+
+    public event Action<float> OnWeightChanged;
 
     public BagWeightManager(float maxBagWeight)
     {
@@ -20,10 +22,7 @@ public class BagWeightManager
         if (CanAddItem(itemWeight))
         {
             CurrentBagWeight += itemWeight;
-        }
-        else
-        {
-            Debug.LogWarning("Not enough weight capacity to add the item!");
+            OnWeightChanged?.Invoke(CurrentBagWeight);
         }
     }
 
@@ -34,5 +33,6 @@ public class BagWeightManager
         {
             CurrentBagWeight = 0;
         }
+        OnWeightChanged?.Invoke(CurrentBagWeight);
     }
 }

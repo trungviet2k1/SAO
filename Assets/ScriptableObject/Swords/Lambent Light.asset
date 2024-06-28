@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4c0360b525e314394744e51a8ee0f4, type: 3}
   m_Name: Lambent Light
   m_EditorClassIdentifier: 
+  itemID: 3
   prefab: {fileID: 2525260479370453852, guid: c86b5e3b40d9f374d86f3768cbe869b6, type: 3}
   itemName: Lambent Light
   itemPrice: 500

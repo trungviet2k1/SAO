@@ -12,17 +12,29 @@ public class ItemUI : MonoBehaviour
     private ConsumableItem consumableItem;
     private ShopManager shopManager;
 
+    private void OnEnable()
+    {
+        CurrencyManager.Instance.OnMoneyChanged += UpdateBuyButtonState;
+    }
+
+    private void OnDisable()
+    {
+        if (CurrencyManager.Instance != null)
+        {
+            CurrencyManager.Instance.OnMoneyChanged -= UpdateBuyButtonState;
+        }
+    }
+
     public void SetupItemForSale(Item newItem, ShopManager manager)
     {
         item = newItem;
         shopManager = manager;
         itemImage.sprite = item.prefab.GetComponent<Image>().sprite;
         itemNameText.text = item.itemName;
-        itemPriceText.text = item.itemPrice.ToString() + " Col";
+        itemPriceText.text = $"{item.itemPrice} Col";
         buyButton.onClick.AddListener(BuyItemButtonClicked);
         GetComponent<Button>().onClick.AddListener(OnItemClicked);
-        GetComponent<Button>().onClick.AddListener(ButtonSoundManager.Instance.PlayButtonClickSound);
-        buyButton.onClick.AddListener(ButtonSoundManager.Instance.PlayButtonClickSound);
+        UpdateBuyButtonState(0);
     }
 
     public void SetupConsumableItemForSale(ConsumableItem newConsumableItem, ShopManager manager)
@@ -31,11 +43,10 @@ public class ItemUI : MonoBehaviour
         shopManager = manager;
         itemImage.sprite = consumableItem.prefabIcon.GetComponent<Image>().sprite;
         itemNameText.text = consumableItem.itemName;
-        itemPriceText.text = consumableItem.itemPrice.ToString() + " Col";
+        itemPriceText.text = $"{consumableItem.itemPrice} Col";
         buyButton.onClick.AddListener(BuyConsumableItemButtonClicked);
         GetComponent<Button>().onClick.AddListener(OnConsumableClicked);
-        GetComponent<Button>().onClick.AddListener(ButtonSoundManager.Instance.PlayButtonClickSound);
-        buyButton.onClick.AddListener(ButtonSoundManager.Instance.PlayButtonClickSound);
+        UpdateBuyButtonState(0);
     }
 
     void BuyItemButtonClicked()
@@ -56,5 +67,17 @@ public class ItemUI : MonoBehaviour
     void OnConsumableClicked()
     {
         shopManager.DisplayConsumableInformation(consumableItem);
+    }
+
+    void UpdateBuyButtonState(int _)
+    {
+        if (item != null)
+        {
+            buyButton.interactable = CurrencyManager.Instance.CanAfford(item.itemPrice);
+        }
+        else if (consumableItem != null)
+        {
+            buyButton.interactable = CurrencyManager.Instance.CanAfford(consumableItem.itemPrice);
+        }
     }
 }

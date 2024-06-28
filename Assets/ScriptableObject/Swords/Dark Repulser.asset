@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4c0360b525e314394744e51a8ee0f4, type: 3}
   m_Name: Dark Repulser
   m_EditorClassIdentifier: 
+  itemID: 5
   prefab: {fileID: 2525260479370453852, guid: 05602604484bf4742b93d7e695253b77, type: 3}
   itemName: Dark Repulser
   itemPrice: 600
