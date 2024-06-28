@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class ShopManager : MonoBehaviour
 {
@@ -74,7 +75,9 @@ public class ShopManager : MonoBehaviour
 
     public void BuyItem(Item item)
     {
-        if (item != null && CurrencyManager.Instance.CanAfford(item.itemPrice))
+        if (item != null 
+            && CurrencyManager.Instance.CanAfford(item.itemPrice) 
+            && CharacterLevelSystem.Instance.Level >= item.requiredLevel)
         {
             CurrencyManager.Instance.SubtractMoney(item.itemPrice);
             InventoryManager.Instance.AddItem(item);
@@ -83,7 +86,9 @@ public class ShopManager : MonoBehaviour
 
     public void BuyConsumableItem(ConsumableItem consumableItem)
     {
-        if (consumableItem != null && CurrencyManager.Instance.CanAfford(consumableItem.itemPrice))
+        if (consumableItem != null 
+            && CurrencyManager.Instance.CanAfford(consumableItem.itemPrice) 
+            && CharacterLevelSystem.Instance.Level >= consumableItem.requiredLevel)
         {
             CurrencyManager.Instance.SubtractMoney(consumableItem.itemPrice);
             InventoryManager.Instance.AddConsumableItem(consumableItem);

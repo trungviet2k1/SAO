@@ -19,8 +19,11 @@ public class Item : ScriptableObject
     public int itemID;
     public GameObject prefab;
     public string itemName;
+    [TextArea(5, 10)]
+    public string description;
     public int itemPrice;
     public float weight;
+    public int requiredLevel;
     public ItemType itemType;
     public string prefab3DName;
 }

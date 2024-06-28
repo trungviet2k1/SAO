@@ -15,8 +15,13 @@ MonoBehaviour:
   itemID: 3
   prefab: {fileID: 2525260479370453852, guid: c86b5e3b40d9f374d86f3768cbe869b6, type: 3}
   itemName: Lambent Light
+  description: "C\xF3 thi\u1EBFt k\u1EBF m\u1ECFng nh\u1EB9 v\xE0 l\u1EDBp l\xF3ng
+    l\xE1nh m\xE0u xanh l\xE1 c\xE2y v\xF4 c\xF9ng s\u1EAFc b\xE9n. Bi\u1EC3u t\u01B0\u1EE3ng
+    c\u1EE7a s\u1EF1 tinh khi\u1EBFt v\xE0 tinh t\u1EBF.\n\n(C\u1EA5p \u0111\u1ED9
+    m\u1EDF kh\xF3a: Lv.10)"
   itemPrice: 500
   weight: 1.3
+  requiredLevel: 10
   itemType: 6
   prefab3DName: Lambent Light
   attackPower: 10

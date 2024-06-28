@@ -73,11 +73,11 @@ public class ItemUI : MonoBehaviour
     {
         if (item != null)
         {
-            buyButton.interactable = CurrencyManager.Instance.CanAfford(item.itemPrice);
+            buyButton.interactable = CurrencyManager.Instance.CanAfford(item.itemPrice) && CharacterLevelSystem.Instance.Level >= item.requiredLevel;
         }
         else if (consumableItem != null)
         {
-            buyButton.interactable = CurrencyManager.Instance.CanAfford(consumableItem.itemPrice);
+            buyButton.interactable = CurrencyManager.Instance.CanAfford(consumableItem.itemPrice) && CharacterLevelSystem.Instance.Level >= consumableItem.requiredLevel;
         }
     }
 }

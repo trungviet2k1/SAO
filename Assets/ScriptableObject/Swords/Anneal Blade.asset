@@ -15,8 +15,11 @@ MonoBehaviour:
   itemID: 2
   prefab: {fileID: 2525260479370453852, guid: fb23cbd177a3c1d48bab471dd4d0dd85, type: 3}
   itemName: Anneal Blade
+  description: "M\u1ED9t thanh ki\u1EBFm \u0111\u01B0\u1EE3c r\xE8n l\u1EA1i, b\u1EC1n
+    v\xE0 r\u1EA5t s\u1EAFc b\xE9n.\n\n(C\u1EA5p \u0111\u1ED9 m\u1EDF kh\xF3a: Lv.2)"
   itemPrice: 150
   weight: 2.2
+  requiredLevel: 2
   itemType: 6
   prefab3DName: Anneal Blade
   attackPower: 5

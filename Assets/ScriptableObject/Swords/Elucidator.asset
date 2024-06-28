@@ -15,8 +15,15 @@ MonoBehaviour:
   itemID: 4
   prefab: {fileID: 2525260479370453852, guid: 5c537ecdb7197944e906bc51cc8e69da, type: 3}
   itemName: Elucidator
+  description: "Chu\xF4i ki\u1EBFm m\xE0u \u0111en \u0111\u01B0\u1EE3c n\u1ED1i v\u1EDBi
+    m\u1ED9t tay c\u1EA7m th\u1EA3 xu\u1ED1ng \u1EDF ph\xEDa b\xEAn ph\u1EA3i. G\u1EAFn
+    v\xE0o khu v\u1EF1c d\xE0i n\xE0y c\u1EE7a tay c\u1EA7m l\xE0 m\u1ED9t ph\u1EA7n
+    c\u1EE7a l\u01B0\u1EE1i ki\u1EBFm Elucidator. L\u01B0\u1EE1i ki\u1EBFm ho\xE0n
+    to\xE0n \u0111en nh\u01B0 ph\u1EA7n c\xF2n l\u1EA1i c\u1EE7a thanh ki\u1EBFm,
+    v\xF4 c\xF9ng s\u1EAFc b\xE9n.\n\n(C\u1EA5p \u0111\u1ED9 m\u1EDF kh\xF3a: Lv.15)"
   itemPrice: 550
   weight: 1.5
+  requiredLevel: 15
   itemType: 6
   prefab3DName: Elucidator
   attackPower: 12

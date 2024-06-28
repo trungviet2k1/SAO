@@ -4,6 +4,7 @@ using UnityEngine;
 public class ItemInfoPanel : MonoBehaviour
 {
     public TextMeshProUGUI itemNameText;
+    public TextMeshProUGUI itemDescription;
     public TextMeshProUGUI itemHPBonusText;
     public TextMeshProUGUI itemAttackPowerText;
     public TextMeshProUGUI itemDefensePowerText;
@@ -12,6 +13,7 @@ public class ItemInfoPanel : MonoBehaviour
     {
         gameObject.SetActive(true);
         itemNameText.text = item.itemName;
+        itemDescription.text = item.description;
 
         if (item is ArmorItem armorItem)
         {

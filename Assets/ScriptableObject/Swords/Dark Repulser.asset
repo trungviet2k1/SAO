@@ -15,8 +15,13 @@ MonoBehaviour:
   itemID: 5
   prefab: {fileID: 2525260479370453852, guid: 05602604484bf4742b93d7e695253b77, type: 3}
   itemName: Dark Repulser
+  description: "Thanh ki\u1EBFm n\xE0y c\xF3 thi\u1EBFt k\u1EBF \u0111\u1ED9c \u0111\xE1o
+    v\u1EDBi l\u01B0\u1EE1i ki\u1EBFm m\xE0u xanh l\u1EE5c, mang l\u1EA1i c\u1EA3m
+    gi\xE1c hi\u1EC7n \u0111\u1EA1i v\xE0 huy\u1EC1n b\xED.\n\n(C\u1EA5p \u0111\u1ED9
+    m\u1EDF kh\xF3a: Lv.20)"
   itemPrice: 600
   weight: 1.75
+  requiredLevel: 20
   itemType: 6
   prefab3DName: Dark Repulser
   attackPower: 13

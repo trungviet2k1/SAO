@@ -16,8 +16,10 @@ MonoBehaviour:
   prefabIcon: {fileID: 2525260479370453852, guid: afd7977a0ae26f9428b14d6898989180,
     type: 3}
   itemName: "Thu\u1ED1c h\u1ED3i m\xE1u si\xEAu c\u1EA5p"
-  description: "Gi\xFAp b\u1EA1n h\u1ED3i l\u1EA1i 150 m\xE1u trong 15s"
+  description: "Gi\xFAp b\u1EA1n h\u1ED3i l\u1EA1i 150 m\xE1u trong 15s.\n\n(C\u1EA5p
+    \u0111\u1ED9 m\u1EDF kh\xF3a: Lv.15)"
   weight: 1
+  requiredLevel: 15
   itemPrice: 120
   stackable: 1
   maxStackCount: 100
