@@ -13,6 +13,7 @@ public class ConsumableItem : ScriptableObject
     public int itemPrice;
     public bool stackable;
     public int maxStackCount;
+    public ItemType itemType;
 
     [HideInInspector] public int stackCount;
 

@@ -22,7 +22,7 @@ public class WeaponShopNPC : InteractableNPC
     public void OpenShop()
     {
         string shopName = $"{npcName}'s Shop";
-        ShopManager.Instance.OpenShop(ShopType.WeaponShop, shopName);
+        ShopManager.Instance.OpenShop(ShopManager.ShopType.WeaponShop, shopName);
         TriggerIdle();
     }
 }

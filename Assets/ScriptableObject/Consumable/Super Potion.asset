@@ -23,6 +23,7 @@ MonoBehaviour:
   itemPrice: 120
   stackable: 1
   maxStackCount: 100
+  itemType: 8
   stackCount: 0
   potionType: 3
   healthRestoreAmount: 150

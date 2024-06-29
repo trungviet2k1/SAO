@@ -21,35 +21,51 @@ public class EquipSlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        Item item = DragDrop.itemBeingDragged.GetComponent<ItemComponent>().item;
-
-        if (item.itemType == equipType)
-        {
-            if (!Item)
-            {
-                DragDrop.itemBeingDragged.transform.SetParent(transform);
-                DragDrop.itemBeingDragged.transform.localPosition = Vector2.zero;
-
-                if (equipType == ItemType.Weapon)
-                {
-                    GameObject weaponPrefab = PrefabManager.Instance.GetWeaponPrefab(item.prefab3DName);
-                    if (weaponPrefab != null)
-                    {
-                        EquipmentSystem.Instance.EquipWeapon(weaponPrefab);
-                    }
-                }
-                InventoryManager.Instance.RemoveItem(item);
-            }
-            equippedItem = item;
-        }
+        GameObject droppedItem = DragDrop.itemBeingDragged;
         
+        if (droppedItem.TryGetComponent<ItemComponent>(out var itemComponent))
+        {
+            Item item = itemComponent.item;
+
+            if (item.itemType == equipType)
+            {
+                if (!Item)
+                {
+                    DragDrop.itemBeingDragged.transform.SetParent(transform);
+                    DragDrop.itemBeingDragged.transform.localPosition = Vector2.zero;
+
+                    if (equipType == ItemType.Weapon)
+                    {
+                        GameObject weaponPrefab = PrefabManager.Instance.GetWeaponPrefab(item.prefab3DName);
+                        if (weaponPrefab != null)
+                        {
+                            EquipmentSystem.Instance.EquipWeapon(weaponPrefab);
+                        }
+                    }
+                    InventoryManager.Instance.RemoveItem(item);
+                }
+                equippedItem = item;
+            }
+        }
+        else
+        {
+            ConsumableItemComponent consumable = droppedItem.GetComponent<ConsumableItemComponent>();
+            ConsumableItem consumableItem = consumable.consumableItem;
+
+            if (consumableItem.itemType == ItemType.Consumable)
+            {
+                droppedItem.transform.SetParent(DragDrop.startParent);
+                droppedItem.transform.position = DragDrop.startPosition;
+                return;
+            }
+        }
     }
 
     public void UnequipItem()
     {
         if (equippedItem != null)
         {
-            InventoryManager.Instance.AddItem(equippedItem);
+            InventoryManager.Instance.ReturnItems(equippedItem);
 
             if (transform.childCount > 0)
             {

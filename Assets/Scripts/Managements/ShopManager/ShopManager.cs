@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
+using System.Collections.Generic;
 
 public class ShopManager : MonoBehaviour
 {
@@ -23,12 +22,21 @@ public class ShopManager : MonoBehaviour
     public ItemInfoPanel itemInfoPanel;
     public ConsumableInfoPanel consumableInfoPanel;
 
+    [Header("Buy Item Notification")]
+    public GameObject buyNotificationPrefab;
+    public Transform notificationParent;
+
     [Header("Button Controls")]
     public Button closeButton;
 
     [HideInInspector] public bool isOpenShop = false;
 
-    private ShopType currentShopType;
+    public enum ShopType
+    {
+        WeaponShop,
+        EquipmentShop,
+        ConsumableShop
+    }
 
     private void Awake()
     {
@@ -75,24 +83,33 @@ public class ShopManager : MonoBehaviour
 
     public void BuyItem(Item item)
     {
-        if (item != null 
-            && CurrencyManager.Instance.CanAfford(item.itemPrice) 
+        if (item != null
+            && CurrencyManager.Instance.CanAfford(item.itemPrice)
             && CharacterLevelSystem.Instance.Level >= item.requiredLevel)
         {
             CurrencyManager.Instance.SubtractMoney(item.itemPrice);
-            InventoryManager.Instance.AddItem(item);
+            InventoryManager.Instance.AddNewItem(item);
+            ShowBuyNotification(item.prefab.GetComponent<Image>().sprite, item.itemName);
         }
     }
 
     public void BuyConsumableItem(ConsumableItem consumableItem)
     {
-        if (consumableItem != null 
-            && CurrencyManager.Instance.CanAfford(consumableItem.itemPrice) 
+        if (consumableItem != null
+            && CurrencyManager.Instance.CanAfford(consumableItem.itemPrice)
             && CharacterLevelSystem.Instance.Level >= consumableItem.requiredLevel)
         {
             CurrencyManager.Instance.SubtractMoney(consumableItem.itemPrice);
             InventoryManager.Instance.AddConsumableItem(consumableItem);
+            ShowBuyNotification(consumableItem.prefabIcon.GetComponent<Image>().sprite, consumableItem.itemName);
         }
+    }
+
+    private void ShowBuyNotification(Sprite itemSprite, string itemName)
+    {
+        GameObject notificationInstance = Instantiate(buyNotificationPrefab, notificationParent);
+        BuyNotification buyNotification = notificationInstance.GetComponent<BuyNotification>();
+        buyNotification.ShowNotification(itemSprite, "+ " + itemName);
     }
 
     public void CloseShop()
@@ -105,7 +122,6 @@ public class ShopManager : MonoBehaviour
 
     public void OpenShop(ShopType shopType, string shopName)
     {
-        currentShopType = shopType;
         isOpenShop = true;
         shopPanel.SetActive(true);
         shopNameText.text = shopName;

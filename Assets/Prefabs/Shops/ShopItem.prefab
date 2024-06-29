@@ -363,7 +363,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Buy
+  m_text: Mua
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d426834fde82fa44fb91c789ced6056d, type: 2}
   m_sharedMaterial: {fileID: 5348052146168721178, guid: d426834fde82fa44fb91c789ced6056d,

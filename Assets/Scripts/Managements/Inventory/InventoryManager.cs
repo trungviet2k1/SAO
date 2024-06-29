@@ -56,7 +56,7 @@ public class InventoryManager : MonoBehaviour
         return inventoryConsumableItems.Count < inventorySettings.maxSlots || bagWeightManager.CanAddItem(item.weight);
     }
 
-    public bool AddItem(Item item)
+    public bool AddNewItem(Item item)
     {
         if (CanAddItem(item))
         {
@@ -96,6 +96,21 @@ public class InventoryManager : MonoBehaviour
                 inventoryConsumableItems.Add(item);
             }
 
+            bagWeightManager.AddItemWeight(item.weight);
+            InventorySystem.Instance.UpdateInventory();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool ReturnItems(Item item)
+    {
+        if (CanAddItem(item))
+        {
+            inventoryItems.Add(item);
             bagWeightManager.AddItemWeight(item.weight);
             InventorySystem.Instance.UpdateInventory();
             return true;

@@ -31,14 +31,14 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 equipSlot.UnequipItem();
             }
         }
-        else
+        /*else
         {
             GameObject targetItem = Item;
             SwapItems(droppedItem, targetItem);
-        }
+        }*/
     }
 
-    private void SwapItems(GameObject item1, GameObject item2)
+    /*private void SwapItems(GameObject item1, GameObject item2)
     {
         Transform item1Parent = item1.transform.parent;
         Transform item2Parent = item2.transform.parent;
@@ -51,5 +51,5 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 
         item2.transform.SetParent(item1Parent);
         item2.transform.localPosition = item1Position;
-    }
+    }*/
 }

@@ -17021,6 +17021,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 122a2e2b9f642c5489e752660d67a71d, type: 2}
   itemInfoPanel: {fileID: 1322313530}
   consumableInfoPanel: {fileID: 351963216}
+  buyNotificationPrefab: {fileID: 4415244835408977894, guid: 12532dc2f60e7214b8ed500320aaecff,
+    type: 3}
+  notificationParent: {fileID: 1923591846}
   closeButton: {fileID: 676812982}
   isOpenShop: 0
 --- !u!1 &1009131956
@@ -21934,7 +21937,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Data
+  m_text: "D\u1EEF li\u1EC7u"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d426834fde82fa44fb91c789ced6056d, type: 2}
   m_sharedMaterial: {fileID: 5348052146168721178, guid: d426834fde82fa44fb91c789ced6056d,
@@ -22807,7 +22810,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Data
+  m_text: "D\u1EEF li\u1EC7u"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d426834fde82fa44fb91c789ced6056d, type: 2}
   m_sharedMaterial: {fileID: 5348052146168721178, guid: d426834fde82fa44fb91c789ced6056d,
@@ -28343,6 +28346,7 @@ RectTransform:
   - {fileID: 811698266}
   - {fileID: 1488548020}
   - {fileID: 779579453}
+  - {fileID: 1923591846}
   m_Father: {fileID: 560740180}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -32118,6 +32122,41 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1921970159}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1923591845
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1923591846}
+  m_Layer: 5
+  m_Name: BuyItemInformation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1923591846
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923591845}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1632257501}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -142, y: -426}
+  m_SizeDelta: {x: 251.97, y: 56.364014}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &1927699779 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6065439403864702657, guid: 430b520c6e40f0948bcbbb37c17fbf0d,

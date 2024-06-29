@@ -10,7 +10,7 @@ public enum ItemType
     Boots,
     Weapon,
     Shield,
-    None
+    Consumable
 }
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]

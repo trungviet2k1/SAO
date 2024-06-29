@@ -14,7 +14,7 @@ public class PickUpItem : Interactable
     protected override void Interaction()
     {
         base.Interaction();
-        InventoryManager.Instance.AddItem(item);
+        InventoryManager.Instance.AddNewItem(item);
         Destroy(gameObject);
     }
 }

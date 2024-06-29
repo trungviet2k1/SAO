@@ -42,12 +42,12 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             transform.SetParent(startParent);
         }
 
+        canvasGroup.alpha = 1f;
+        canvasGroup.blocksRaycasts = true;
+
         if (startParent.TryGetComponent<EquipSlot>(out var equipSlot))
         {
             equipSlot.UnequipItem();
         }
-
-        canvasGroup.alpha = 1f;
-        canvasGroup.blocksRaycasts = true;
     }
 }
